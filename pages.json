@@ -1,0 +1,60 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/tabbar/index/index",
+			"style": {
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "white",
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/tabbar/addressbook/addressbook",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		}, {
+			"path": "pages/tabbar/discovery/discovery",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		}, {
+			"path": "pages/tabbar/mine/mine",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#0098da",
+		"borderStyle":"black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/tabbar/index/index",
+			"iconPath":"static/聊天.png",
+			"selectedIconPath":"static/聊天_1.png",
+			"text": "聊天"
+		}, {
+			"pagePath": "pages/tabbar/addressbook/addressbook",
+			"iconPath":"static/通讯录.png",
+			"selectedIconPath":"static/通讯录_1.png",
+			"text": "通讯录"
+		}, {
+			"pagePath": "pages/tabbar/discovery/discovery",
+			"iconPath":"static/发现.png",
+			"selectedIconPath":"static/发现_1.png",
+			"text": "发现"
+		}, {
+			"pagePath": "pages/tabbar/mine/mine",
+			"iconPath":"static/我的.png",
+			"selectedIconPath":"static/我的_1.png",
+			"text": "我的"
+		}]
+	}
+}
