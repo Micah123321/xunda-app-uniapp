@@ -15,43 +15,43 @@
 /* 颜色变量 */
 
 /* 行为相关颜色 */
-$uni-color-primary: #007aff;
-$uni-color-success: #4cd964;
-$uni-color-warning: #f0ad4e;
-$uni-color-error: #dd524d;
+$uni-color-primary: #0078d4;
+$uni-color-success: #51cf66;
+$uni-color-warning: #fcc419;
+$uni-color-error: #e8590c;
 
 /* 文字基本颜色 */
-$uni-text-color:#333;//基本色
+$uni-text-color:rgba(39,40,50,1);//基本色
 $uni-text-color-inverse:#fff;//反色
-$uni-text-color-grey:#999;//辅助灰色，如加载更多的提示信息
+$uni-text-color-grey:rgba(39,40,50,0.6);//辅助灰色，如加载更多的提示信息
 $uni-text-color-placeholder: #808080;
-$uni-text-color-disable:#c0c0c0;
+$uni-text-color-disable:rgba(39,40,50,0.4);
 
 /* 背景颜色 */
 $uni-bg-color:#ffffff;
-$uni-bg-color-grey:#f8f8f8;
-$uni-bg-color-hover:#f1f1f1;//点击状态颜色
+$uni-bg-color-grey:#dee2e6;
+$uni-bg-color-hover:#ced4da;//点击状态颜色
 $uni-bg-color-mask:rgba(0, 0, 0, 0.4);//遮罩颜色
 
 /* 边框颜色 */
-$uni-border-color:#c8c7cc;
+$uni-border-color:rgba(39,40,50,0.1);
 
 /* 尺寸变量 */
 
 /* 文字尺寸 */
-$uni-font-size-sm:12px;
-$uni-font-size-base:14px;
-$uni-font-size-lg:16;
+$uni-font-size-sm:24;
+$uni-font-size-base:28;
+$uni-font-size-lg:32;
 
 /* 图片尺寸 */
-$uni-img-size-sm:20px;
-$uni-img-size-base:26px;
-$uni-img-size-lg:40px;
+$uni-img-size-sm:80;
+$uni-img-size-base:96;
+$uni-img-size-lg:104;
 
 /* Border Radius */
-$uni-border-radius-sm: 2px;
-$uni-border-radius-base: 3px;
-$uni-border-radius-lg: 6px;
+$uni-border-radius-sm: 10;
+$uni-border-radius-base: 20;
+$uni-border-radius-lg: 40;
 $uni-border-radius-circle: 50%;
 
 /* 水平间距 */
