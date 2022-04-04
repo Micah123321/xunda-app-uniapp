@@ -39,30 +39,30 @@ $uni-border-color:rgba(39,40,50,0.1);
 /* 尺寸变量 */
 
 /* 文字尺寸 */
-$uni-font-size-sm:24;
-$uni-font-size-base:28;
-$uni-font-size-lg:32;
+$uni-font-size-sm:24rpx;
+$uni-font-size-base:28rpx;
+$uni-font-size-lg:36rpx;
 
 /* 图片尺寸 */
-$uni-img-size-sm:80;
-$uni-img-size-base:96;
-$uni-img-size-lg:104;
+$uni-img-size-sm:80rpx;
+$uni-img-size-base:96rpx;
+$uni-img-size-lg:104rpx;
 
 /* Border Radius */
-$uni-border-radius-sm: 10;
-$uni-border-radius-base: 20;
-$uni-border-radius-lg: 40;
+$uni-border-radius-sm: 10rpx;
+$uni-border-radius-base: 20rpx;
+$uni-border-radius-lg: 40rpx;
 $uni-border-radius-circle: 50%;
 
 /* 水平间距 */
-$uni-spacing-row-sm: 5px;
-$uni-spacing-row-base: 10px;
-$uni-spacing-row-lg: 15px;
+$uni-spacing-row-sm: 20rpx;
+$uni-spacing-row-base: 40rpx;
+$uni-spacing-row-lg: 60rpx;
 
 /* 垂直间距 */
-$uni-spacing-col-sm: 4px;
-$uni-spacing-col-base: 8px;
-$uni-spacing-col-lg: 12px;
+$uni-spacing-col-sm: 16rpx;
+$uni-spacing-col-base: 38rpx;
+$uni-spacing-col-lg: 48rpx;
 
 /* 透明度 */
 $uni-opacity-disabled: 0.3; // 组件禁用态的透明度
