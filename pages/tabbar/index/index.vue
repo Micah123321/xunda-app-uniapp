@@ -6,15 +6,15 @@
 			<block slot="left">
 				<view class="bar-left">
 					<div class="head-img">
-						<img src="https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/defaultpic.png" alt=""
+						<img @click="goHome" src="https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/defaultpic.png" alt=""
 							class="user_pic">
 					</div>
 				</view>
 			</block>
 			<block slot="right">
 				<view class="bar-right">
-					<uni-icons class="bar-search" size="25" type="search" />
-					<uni-icons class="bar-plus" size="25" type="plus" />
+					<uni-icons color="#dee2e6" @click="gosearch" class="bar-search" size="25" type="search" />
+					<uni-icons color="#dee2e6" class="bar-plus" size="25" type="plus" />
 
 				</view>
 			</block>
@@ -29,7 +29,8 @@
 						<div class="msg-item-img">
 
 							<img :src="list.userPic" alt="" class="user_pic">
-							<uni-tag class="msg-item-img-tag" text="1" type="error" :circle="true"></uni-tag>
+							<uni-badge class="msg-item-img-tag" text="1" />
+							<!-- <uni-tag class="msg-item-img-tag" text="1" type="error" :circle="true"></uni-tag> -->
 						</div>
 					</div>
 					<div class="right">
@@ -202,6 +203,17 @@
 			}
 		},
 		methods: {
+			goHome(){
+				uni.navigateTo({
+					url: '../../userhome/userhome',
+					animationType:"slide-in-left"
+				});
+			},
+			gosearch() {
+				uni.navigateTo({
+					url: '../../search/search'
+				});
+			},
 			onClick(e) {
 				console.log('点击了' + (e.position === 'left' ? '左侧' : '右侧') + e.content.text + '按钮')
 			},
@@ -330,7 +342,7 @@
 			.msg-item-img-tag {
 				position: relative;
 				top: -74rpx;
-				left: -14rpx;
+				left: -28rpx;
 				border-radius: $uni-border-radius-circle !important;
 				line-height: 14px;
 				font-size: $uni-font-size-sm;
@@ -397,10 +409,25 @@
 	}
 
 	/deep/.uni-navbar__content {
-		border-bottom-color: rgba(0, 0, 0, 0.33);
+		border-bottom-color: #dee2e6;
+	}
+
+	.uni-navbar {
+		.uni-navbar__content {
+			border: 1rpx solid #dee2e6 !important;
+			// border-bottom-color: #dee2e6;
+		}
+	}
+
+	// 修改h5顶部
+	/deep/.uni-navbar--border {
+		border: 1rpx solid #dee2e6 !important;
 	}
 
 	.body {
 		padding: $uni-spacing-col-sm;
 	}
+	// /deep/.uni-tabbar-border{
+	// 	background-color: #dee2e6;
+	// }
 </style>

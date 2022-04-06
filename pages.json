@@ -2,17 +2,38 @@
 	"pages": [
 		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-		    "path" : "pages/search/search",
-		    "style": {
-		    	"navigationBarBackgroundColor": "#FFFFFF",
-		    	"navigationBarTextStyle": "black", //状态栏字体颜色
-		    	"app-plus": {
-		    		"titleNView": false //去掉当前页的顶部导航栏
-		    	},
-		    	"navigationStyle": "custom"
-		    }
-		    
-		},{
+			"path": "pages/tabbar/index/index",
+			"style": {
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black", //状态栏字体颜色
+				"app-plus": {
+					"titleNView": false //去掉当前页的顶部导航栏
+				},
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/search/search",
+			"style": {
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black", //状态栏字体颜色
+				"app-plus": {
+					"titleNView": false //去掉当前页的顶部导航栏
+				},
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/userhome/userhome",
+			"style": {
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black", //状态栏字体颜色
+				"app-plus": {
+					"titleNView": false //去掉当前页的顶部导航栏
+				},
+				"navigationStyle": "custom"
+			}
+
+		}, {
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarBackgroundColor": "#FFFFFF",
@@ -24,19 +45,7 @@
 			}
 		},
 		{
-		    "path" : "pages/reg/reg",
-		    "style": {
-		    	"navigationBarBackgroundColor": "#FFFFFF",
-		    	"navigationBarTextStyle": "black", //状态栏字体颜色
-		    	"app-plus": {
-		    		"titleNView": false //去掉当前页的顶部导航栏
-		    	},
-		    	"navigationStyle": "custom"
-		    }
-		    
-		},
-		{
-			"path": "pages/tabbar/index/index",
+			"path": "pages/reg/reg",
 			"style": {
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black", //状态栏字体颜色
@@ -45,7 +54,9 @@
 				},
 				"navigationStyle": "custom"
 			}
+
 		},
+
 		{
 			"path": "pages/tabbar/addressbook/addressbook",
 			"style": {
@@ -64,9 +75,22 @@
 				"navigationBarTitleText": "uni-app"
 			}
 		}
-	    
-        
-    ],
+
+
+
+		, {
+			"path": "pages/userinfo/userinfo",
+			"style": {
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black", //状态栏字体颜色
+				"app-plus": {
+					"titleNView": false //去掉当前页的顶部导航栏
+				},
+				"navigationStyle": "custom"
+			}
+
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "xunda",
@@ -77,7 +101,7 @@
 	"tabBar": {
 		"color": "rgba(39, 40, 50, 0.6)",
 		"selectedColor": "#0098da",
-		"borderStyle": "black",
+		"borderStyle": "#dee2e6",
 		"backgroundColor": "#ffffff",
 		"list": [{
 				"pagePath": "pages/tabbar/index/index",

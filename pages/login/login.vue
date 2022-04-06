@@ -5,7 +5,7 @@
 			<block slot="left">
 				<view class="bar-left">
 					<div class="exit">
-						<uni-icons class="bar-close" size="30" type="closeempty" />
+						<uni-icons @click="back" class="bar-close" size="30" type="closeempty" />
 					</div>
 				</view>
 			</block>
@@ -21,6 +21,7 @@
 		<!-- 注册页面 -->
 		<div class="login">
 			<div class="login-logo">
+				
 				<img class="login-logo-img"
 					src="https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/defaultpic.png" alt="">
 			</div>
@@ -90,6 +91,13 @@
 				uni.navigateTo({
 					url: '../reg/reg',
 					animationType: 'pop-in',
+					animationDuration: 200
+				});
+			},
+			back() {
+				uni.navigateBack({
+					delta: 1,
+					animationType: 'pop-out',
 					animationDuration: 200
 				});
 			}
