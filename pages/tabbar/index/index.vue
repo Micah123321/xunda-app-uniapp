@@ -401,7 +401,6 @@
 				letter-spacing: -0.62px;
 				font-weight: 400;
 			}
-
 		}
 
 
