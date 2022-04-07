@@ -70,7 +70,7 @@
 					{
 						"id": 583,
 						"userId": 47,
-						"content": "<a target=\"_blank\" href=\"https://wwe.lanzouv.com/idsxY00c76sj\">https://wwe.lanzouv.com/idsxY00c76sj</a><div><br></div>",
+						"content": "小妹添加你为好友,小妹请求添加",
 						"createdate": "2022-02-21 07:32:04",
 						"ip": "未知ip",
 						"type": 1,
@@ -81,7 +81,7 @@
 					{
 						"id": 584,
 						"userId": 48,
-						"content": "http://119.91.141.30/oos/2022-02-22/ebce4389-ef48-4e6c-8e7b-5cfd987b1004",
+						"content": "你好,micah",
 						"createdate": "2022-02-21 17:40:29",
 						"ip": "未知ip",
 						"type": 2,
@@ -92,7 +92,7 @@
 					{
 						"id": 585,
 						"userId": 48,
-						"content": "<a target=\"_blank\" href=\"https://zhangguanzhang.github.io/2020/08/05/wireguard-for-personal/\">https://zhangguanzhang.github.io/2020/08/05/wireguard-for-personal/</a>",
+						"content": "dddd",
 						"createdate": "2022-03-01 07:52:02",
 						"ip": "未知ip",
 						"type": 1,
@@ -103,7 +103,7 @@
 					{
 						"id": 586,
 						"userId": 48,
-						"content": "(文件:56:移除温控通用版_Dev4.zip)",
+						"content": "ccccccawdsadawd",
 						"createdate": "2022-03-22 16:06:05",
 						"ip": "未知ip",
 						"type": 3,
@@ -114,7 +114,7 @@
 					{
 						"id": 587,
 						"userId": 47,
-						"content": "vmess://eyJhZGQiOiJjdS5tai1jbi5jeW91IiwiYWlkIjoiMCIsImhvc3QiOiIiLCJpZCI6ImVlNThjZDNlLWMyZGEtNDllMS1iYTBiLWNmYTY5NDhmYTk0YyIsIm5ldCI6IndzIiwicGF0aCI6IiIsInBvcnQiOiIyMzM4MyIsInBzIjoi5rOV5Zu9LeS8mOWMliIsInRscyI6IiIsInR5cGUiOiJub25lIiwidiI6IjIifQ==",
+						"content": "你好碰撞带涉及到受到环境",
 						"createdate": "2022-04-02 18:04:17",
 						"ip": "未知ip",
 						"type": 1,
@@ -125,7 +125,7 @@
 					{
 						"id": 588,
 						"userId": 50,
-						"content": "<div><br></div><div>adb connect 192.168.1.105:5555</div>",
+						"content": "你好碰撞带涉及到受到环境",
 						"createdate": "2022-04-03 08:45:09",
 						"ip": "未知ip",
 						"type": 1,
@@ -136,67 +136,12 @@
 					{
 						"id": 586,
 						"userId": 48,
-						"content": "(文件:56:移除温控通用版_Dev4.zip)",
+						"content": "你好碰撞带涉及到受到环境",
 						"createdate": "2022-03-22 16:06:05",
 						"ip": "未知ip",
 						"type": 3,
 						"nickname": "哥哥",
 						"userPic": "https://ae01.alicdn.com/kf/HTB1UqNMbvWG3KVjSZFP760aiXXaz.png",
-						"reback": 0
-					},
-					{
-						"id": 587,
-						"userId": 47,
-						"content": "vmess://eyJhZGQiOiJjdS5tai1jbi5jeW91IiwiYWlkIjoiMCIsImhvc3QiOiIiLCJpZCI6ImVlNThjZDNlLWMyZGEtNDllMS1iYTBiLWNmYTY5NDhmYTk0YyIsIm5ldCI6IndzIiwicGF0aCI6IiIsInBvcnQiOiIyMzM4MyIsInBzIjoi5rOV5Zu9LeS8mOWMliIsInRscyI6IiIsInR5cGUiOiJub25lIiwidiI6IjIifQ==",
-						"createdate": "2022-04-02 18:04:17",
-						"ip": "未知ip",
-						"type": 1,
-						"nickname": "小庄",
-						"userPic": "http://cdn.u2.huluxia.com/g3/M03/2A/66/wKgBOVwKh7iAPMeaAAG0aafdrcs181.jpg",
-						"reback": 0
-					},
-					{
-						"id": 588,
-						"userId": 50,
-						"content": "<div><br></div><div>adb connect 192.168.1.105:5555</div>",
-						"createdate": "2022-04-03 08:45:09",
-						"ip": "未知ip",
-						"type": 1,
-						"nickname": "小强",
-						"userPic": "http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg",
-						"reback": 0
-					},
-					{
-						"id": 586,
-						"userId": 48,
-						"content": "(文件:56:移除温控通用版_Dev4.zip)",
-						"createdate": "2022-03-22 16:06:05",
-						"ip": "未知ip",
-						"type": 3,
-						"nickname": "哥哥",
-						"userPic": "https://ae01.alicdn.com/kf/HTB1UqNMbvWG3KVjSZFP760aiXXaz.png",
-						"reback": 0
-					},
-					{
-						"id": 587,
-						"userId": 47,
-						"content": "vmess://eyJhZGQiOiJjdS5tai1jbi5jeW91IiwiYWlkIjoiMCIsImhvc3QiOiIiLCJpZCI6ImVlNThjZDNlLWMyZGEtNDllMS1iYTBiLWNmYTY5NDhmYTk0YyIsIm5ldCI6IndzIiwicGF0aCI6IiIsInBvcnQiOiIyMzM4MyIsInBzIjoi5rOV5Zu9LeS8mOWMliIsInRscyI6IiIsInR5cGUiOiJub25lIiwidiI6IjIifQ==",
-						"createdate": "2022-04-02 18:04:17",
-						"ip": "未知ip",
-						"type": 1,
-						"nickname": "小庄",
-						"userPic": "http://cdn.u2.huluxia.com/g3/M03/2A/66/wKgBOVwKh7iAPMeaAAG0aafdrcs181.jpg",
-						"reback": 0
-					},
-					{
-						"id": 588,
-						"userId": 50,
-						"content": "<div><br></div><div>adb connect 192.168.1.105:5555</div>",
-						"createdate": "2022-04-03 08:45:09",
-						"ip": "未知ip",
-						"type": 1,
-						"nickname": "小强",
-						"userPic": "http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg",
 						"reback": 0
 					}
 				]
@@ -222,6 +167,11 @@
 			},
 			clickmsg(e, index) {
 				console.log(e, index)
+				if(index==0){
+					uni.navigateTo({
+						url: '../../friend-apply-info/friend-apply-info'
+					});
+				}
 			},
 			bindClick(e) {
 				console.log(e);
