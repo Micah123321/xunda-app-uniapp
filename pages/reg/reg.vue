@@ -5,7 +5,7 @@
 			<block slot="left">
 				<view class="bar-left">
 					<div class="back">
-						<uni-icons @click="tologin" class="bar-back" size="30" type="back" />
+						<uni-icons @click="tologin" class="bar-back" size="60rpx" type="back" />
 					</div>
 				</view>
 			</block>
@@ -13,7 +13,7 @@
 				<view class="bar-right">
 
 					<div class="exit">
-						<uni-icons class="bar-close" size="30" type="closeempty" />
+						<uni-icons class="bar-close" size="60rpx" type="closeempty" />
 					</div>
 				</view>
 			</block>

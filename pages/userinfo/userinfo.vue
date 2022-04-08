@@ -7,7 +7,7 @@
 				<block slot="left">
 					<view class="bar-left">
 						<div class="back">
-							<uni-icons @click="back" class="bar-back" size="30" type="back" />
+							<uni-icons @click="back" class="bar-back" size="60rpx" type="back" />
 						</div>
 					</view>
 				</block>
@@ -231,9 +231,9 @@
 					timingFunction: 'ease',
 				})
 				if (this.isModify) {
-					animation.bottom(12 + "%").step()
+					animation.bottom(0).step()
 				} else {
-					animation.bottom(-90 + "%").step()
+					animation.bottom(-100 + "%").step()
 				}
 				this.animationData = animation.export()
 
@@ -307,8 +307,9 @@
 <style lang="scss">
 	.modify {
 		position: fixed;
-		bottom: -90%;
+		bottom: -100%;
 		width: 100%;
+    height: 100%;
 		box-sizing: border-box;
 		z-index: 1001;
 

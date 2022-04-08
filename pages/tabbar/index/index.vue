@@ -6,15 +6,16 @@
 			<block slot="left">
 				<view class="bar-left">
 					<div class="head-img">
-						<img @click="goHome" src="https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/defaultpic.png" alt=""
+						<img @click="goHome"
+							src="https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/defaultpic.png" alt=""
 							class="user_pic">
 					</div>
 				</view>
 			</block>
 			<block slot="right">
 				<view class="bar-right">
-					<uni-icons color="#dee2e6" @click="gosearch" class="bar-search" size="25" type="search" />
-					<uni-icons color="#dee2e6" class="bar-plus" size="25" type="plus" />
+					<uni-icons color="#dee2e6" @click="gosearch" class="bar-search" size="60rpx" type="search" />
+					<uni-icons color="#dee2e6" class="bar-plus" size="60rpx" type="plus" />
 
 				</view>
 			</block>
@@ -148,10 +149,10 @@
 			}
 		},
 		methods: {
-			goHome(){
+			goHome() {
 				uni.navigateTo({
 					url: '../../userhome/userhome',
-					animationType:"slide-in-left"
+					animationType: "slide-in-left"
 				});
 			},
 			gosearch() {
@@ -167,7 +168,7 @@
 			},
 			clickmsg(e, index) {
 				console.log(e, index)
-				if(index==0){
+				if (index == 0) {
 					uni.navigateTo({
 						url: '../../friend-apply-info/friend-apply-info'
 					});
@@ -250,6 +251,10 @@
 </script>
 
 <style lang="scss">
+	/deep/.uni-navbar__header-btns {
+		overflow: initial !important;
+	}
+
 	.bar-plus {
 		color: $uni-text-color-grey !important;
 
@@ -308,7 +313,7 @@
 
 		.right {
 			.top {
-				height: 50 rpx;
+				height: 50rpx;
 			}
 
 			padding-left: 128rpx;
@@ -376,6 +381,7 @@
 	.body {
 		padding: $uni-spacing-col-sm;
 	}
+
 	// /deep/.uni-tabbar-border{
 	// 	background-color: #dee2e6;
 	// }

@@ -5,12 +5,12 @@
 			<block slot="left">
 				<view class="bar-left">
 					<div class="back">
-						<uni-icons @click="back" class="bar-back" size="30" type="back" />
+						<uni-icons @click="back" class="bar-back" size="60rpx" type="back" />
 					</div>
 				</view>
 			</block>
-			<block slot="default">
-				<view class="bar-default">
+			<block slot="right">
+				<view class="bar-m">
 					好友请求
 				</view>
 			</block>
@@ -39,7 +39,7 @@
 						</view>
 						<view class="card-actions-item">
 							<div class="btn-add">
-								<button class="accept" type="primary">同意</button>
+								<button  class="accept" type="primary">同意</button>
 							</div>
 						</view>
 
@@ -96,6 +96,10 @@
 </script>
 
 <style lang="scss">
+
+.bar-m{
+  font-size: $uni-font-size-base;
+}
 	//卡片列表
 	.info-list {
 		width: 100%;
@@ -112,7 +116,7 @@
 				vertical-align: middle;
 
 				.user_pic {
-					box-shadow: 0px 18px 20px 0px rgba(39, 40, 50, 0.1);
+					box-shadow: 0px 26rpx 40rpx 0px rgba(39, 40, 50, 0.1);
 					z-index: 10;
 					border-radius: $uni-border-radius-circle;
 					height: 120rpx;
@@ -160,8 +164,8 @@
 			.cancle {
 				border-radius: $uni-border-radius-lg;
 				// padding: 10px;
-				line-height: 38px;
-				padding: 0px 27px;
+				line-height: 70rpx;
+				padding: 0px 50rpx;
 			}
 		}
 
@@ -170,8 +174,8 @@
 
 			.accept {
 				border-radius: $uni-border-radius-lg;
-				line-height: 38px;
-				padding: 0px 27px;
+				line-height: 70rpx;
+				padding: 0px 50rpx;
 				background-color: $uni-color-primary;
 			}
 		}
@@ -189,10 +193,10 @@
 		}
 
 		.uni-card .uni-card__content {
-			padding: 10px;
-			font-size: 14px;
+			padding: 20rpx;
+			font-size: 28rpx;
 			color: #6a6a6a;
-			line-height: 22px;
+			line-height: 44rpx;
 		}
 
 		.card-actions-item {

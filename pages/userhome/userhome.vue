@@ -7,14 +7,14 @@
 				<block slot="left">
 					<view class="bar-left">
 						<div class="back">
-							<uni-icons @click="back" class="bar-back" size="30" type="back" />
+							<uni-icons @click="back" class="bar-back" size="60rpx" type="back" />
 						</div>
 					</view>
 				</block>
 				<block slot="right">
 					<view class="bar-right">
 						<div class="more">
-							<uni-icons @click="touserinfo" class="bar-more" size="30" type="more-filled" />
+							<uni-icons @click="touserinfo" class="bar-more" size="60rpx" type="more-filled" />
 						</div>
 
 					</view>
