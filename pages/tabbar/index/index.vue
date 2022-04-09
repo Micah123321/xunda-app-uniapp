@@ -172,6 +172,10 @@
 					uni.navigateTo({
 						url: '../../friend-apply-info/friend-apply-info'
 					});
+				}if (index == 1) {
+					uni.navigateTo({
+						url: '../../chat/chat'
+					});
 				}
 			},
 			bindClick(e) {

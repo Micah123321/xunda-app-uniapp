@@ -179,7 +179,7 @@
 			.area-form {
 				padding: $uni-spacing-col-sm $uni-spacing-col-base;
 				width: 100%;
-				height: 40vh;
+				height: 25vh;
 				box-sizing: border-box;
 				font-size: $uni-font-size-lg;
 				color: $uni-text-color-grey;

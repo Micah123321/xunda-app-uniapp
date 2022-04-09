@@ -1,202 +1,455 @@
 <template>
-  <view class="body">
-    <!-- 顶部 -->
-    <uni-nav-bar backgroundColor="transparent" leftWidth="100%" statusBar class="bar" fixed>
-      <block slot="left">
-        <view class="bar-left">
-          <div class="back">
-            <uni-icons @click="back" class="bar-back" size="60rpx" type="back"/>
+	<view class="body">
 
-          </div>
-          <div class="badge">
-            <uni-badge class="uni-badge-left-margin" text="2" type="info" :customStyle="customStyle"/>
-          </div>
-          <view class="name">东东</view>
+		<!-- 顶部 -->
+		<uni-nav-bar backgroundColor="rgba(244, 244, 244, 0.96)" leftWidth="100%" statusBar class="bar" fixed>
+			<block slot="left">
+				<view class="bar-left">
+					<view class="back">
+						<uni-icons @click="back" class="bar-back" size="60rpx" type="back" />
 
-        </view>
-      </block>
-      <block slot="right">
-        <view class="bar-more">
-          <uni-icons class="bar-phone" size="60rpx" type="phone"></uni-icons>
-          <uni-icons class="bar-more" size="60rpx" type="list"></uni-icons>
-        </view>
-      </block>
-    </uni-nav-bar>
+					</view>
+					<view class="badge">
+						<uni-badge class="uni-badge-left-margin" text="2" type="info" :customStyle="customStyle" />
+					</view>
+					<view class="name">东东</view>
 
-    <!-- 消息列表 -->
+				</view>
+			</block>
+			<block slot="right">
+				<view class="bar-more">
+					<uni-icons class="bar-phone" size="60rpx" type="phone"></uni-icons>
+					<uni-icons class="bar-more" size="60rpx" type="list"></uni-icons>
+				</view>
+			</block>
+		</uni-nav-bar>
 
-    <scroll-view class="msg" scroll-with-animation scroll-y>
-      <view class="msg-room">
-        <view class="msg-item ">
-          <view class="msg-item-time">
-            21:22
-          </view>
-          <view class="msg-bottom msg-left">
-            <view class="msg-item-img">
-              <image class="user_pic" src="../../static/icon/logo.png"></image>
-            </view>
-            <view class="msg-item-msg">
+		<!-- 消息列表 -->
 
-              <view class="msg-text"> 摹客在原来原型设计的基础上，融入的团队协作和Design System功能，正当其时。.</view>
+		<scroll-view class="msg" scroll-with-animation="true" scroll-y="true" :scroll-into-view="scrollToView">
+			<view class="msg-room">
+				<view :key="index" v-for="(list,index) in msgList" class="msg-item" :id="'msg'+list.id">
+					<view v-if="!list.hidetime" class="msg-item-time">
+						{{ formatDate1(list.createdate, 'HH:mm') }}
+					</view>
+					<view class="msg-bottom" :class="list.userId==10000?'msg-right':'msg-left' ">
+						<view class="msg-item-img">
+							<image class="user_pic" :src="list.userPic"></image>
+						</view>
+						<view class="msg-item-msg">
 
-            </view>
-          </view>
-        </view><view class="msg-item ">
-          <view class="msg-item-time">
-            21:22
-          </view>
-          <view class="msg-bottom msg-right">
-            <view class="msg-item-img">
-              <image class="user_pic" src="../../static/icon/logo.png"></image>
-            </view>
-            <view class="msg-item-msg">
+							<view v-if="list.type===1" v-text="list.content" class="msg-text"></view>
+							<view v-if="list.type===2">
+								<image @click="previewImg(list.content)" class="msg-pic" :src="list.content"
+									mode="widthFix" lazy-load></image>
+							</view>
 
-              <view class="msg-text"> 摹客在原来原型设计的基础上，融入的团队协作和Design System功能，正当其时。.</view>
+						</view>
+					</view>
 
-            </view>
-          </view>
-        </view>
+				</view>
 
-      </view>
+				<view class="padbt">
 
+				</view>
+			</view>
 
-    </scroll-view>
-
-  </view>
+		</scroll-view>
+		<!-- 提交框 -->
+		<submit></submit>
+	</view>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      customStyle: {
-        backgroundColor: '#f1f3f5',
-        color: '#272832',
-        fontSize: '40rpx',
-        lineHeight: '60rpx',
-        width: '60rpx',
-        height: '60rpx',
-        border: '2rpx solid black'
-      }
-    }
-  },
-  methods: {}
-}
+	import submit from '@/components/submit/submit.vue';
+	export default {
+		components: {
+			submit
+		},
+		data() {
+			return {
+				scrollToView: '',
+				customStyle: { //导航栏标题样式
+					backgroundColor: 'rgba(244, 244, 244, 0.96)',
+					color: '#272832',
+					fontSize: '40rpx',
+					lineHeight: '60rpx',
+					width: '60rpx',
+					height: '60rpx',
+					border: '2rpx solid black'
+				},
+				imgList: [
+					"http://119.91.141.30/oos/2021-12-29/5b39f130-1c5c-4d78-8644-7398ca3eac45",
+					"http://119.91.141.30/oos/2021-12-19/a1fc2c6f-fe54-4ba7-87d3-1e1ab4f61164"
+				],
+				msgList: [
+
+				]
+			}
+		},
+		onLoad() {
+			this.getMsgData()
+		},
+		methods: {
+			back() {
+				uni.navigateBack({
+					delta: 1,
+					animationDuration: 200
+				});
+			},
+			async getMsgData() {
+
+				this.msgList = [{
+						"id": 597,
+						"userId": 10001,
+						"content": "asdasdawdsadawdsadaw",
+						"createdate": "2022-02-21 18:18:47",
+						"ip": "未知ip",
+						"type": 1,
+						"nickname": "管理员sama",
+						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/139acf27-4ae4-4aff-885d-a7def5b2babe_preview1.gif",
+						"reback": 0,
+						"extra": null,
+						"userReceiveId": null
+					},
+					{
+						"id": 598,
+						"userId": 10000,
+						"content": "http://119.91.141.30/oos/2021-12-29/5b39f130-1c5c-4d78-8644-7398ca3eac45",
+						"createdate": "2022-02-21 18:57:10",
+						"ip": "未知ip",
+						"type": 2,
+						"nickname": "micah",
+						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/45d695d1-ab4c-4bef-8a0d-e74e3f188a8b_defaultpic.png",
+						"reback": 0,
+						"extra": null,
+						"userReceiveId": null
+					},
+					{
+						"id": 599,
+						"userId": 10000,
+						"content": "asdasdawdsadawdsadawasdasdawdsadawdsadawasdasdawdsadawdsadawasdasdawdsadawdsadaw",
+						"createdate": "2022-02-23 20:02:13",
+						"ip": "未知ip",
+						"type": 1,
+						"nickname": "micah",
+						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/45d695d1-ab4c-4bef-8a0d-e74e3f188a8b_defaultpic.png",
+						"reback": 0,
+						"extra": null,
+						"userReceiveId": null
+					},
+					{
+						"id": 608,
+						"userId": 10002,
+						"content": "http://119.91.141.30/oos/2021-12-19/a1fc2c6f-fe54-4ba7-87d3-1e1ab4f61164",
+						"createdate": "2022-03-14 11:18:48",
+						"ip": "未知ip",
+						"type": 2,
+						"nickname": "张三",
+						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png",
+						"reback": 0,
+						"extra": null,
+						"userReceiveId": null
+					},
+					{
+						"id": 609,
+						"userId": 10002,
+						"content": "asdasdawdsadawdsadaw",
+						"createdate": "2022-04-9 11:41:53",
+						"ip": "未知ip",
+						"type": 1,
+						"nickname": "张三",
+						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png",
+						"reback": 0,
+						"extra": null,
+						"userReceiveId": null
+					},
+					{
+						"id": 610,
+						"userId": 10000,
+						"content": "asdasdasdasd",
+						"createdate": "2022-04-9 11:42:32",
+						"ip": "未知ip",
+						"type": 1,
+						"nickname": "micah",
+						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/45d695d1-ab4c-4bef-8a0d-e74e3f188a8b_defaultpic.png",
+						"reback": 0,
+						"extra": null,
+						"userReceiveId": null
+					},
+					{
+						"id": 611,
+						"userId": 10002,
+						"content": "asdasdawdsadawdsadaw",
+						"createdate": "2022-04-9 11:41:53",
+						"ip": "未知ip",
+						"type": 1,
+						"nickname": "张三",
+						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png",
+						"reback": 0,
+						"extra": null,
+						"userReceiveId": null
+					}
+				];
+
+				//格式化时间
+				this.calcTime()
+
+				// 到达数据底层
+				this.$nextTick(function() {
+					this.scrollToView = "msg" + this.msgList[this.msgList.length - 1].id
+				})
+
+
+			},
+			/**
+			 * 格式化处理日期信息
+			 * @param date 传入时间
+			 * @param fmt 指定格式
+			 * @returns {string} 处理好的时间
+			 */
+			formatDate1(date, fmt) {
+				let timeChar = ""
+				if (this.compareDate(date)) {
+					timeChar = "今天"
+				} else if (this.compareDate(date, 1)) {
+					timeChar = "昨天"
+				} else if (this.compareDate(date, 2)) {
+					timeChar = "前天"
+				} else {
+					timeChar = ""
+					fmt = "yyyy-MM-dd HH:mm:ss";
+				}
+				date = new Date(date);
+
+				if (typeof(fmt) === "undefined") {
+					fmt = "yyyy-MM-dd HH:mm:ss";
+				}
+				if (/(y+)/.test(fmt)) {
+					fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+				}
+				let o = {
+					'Y': date.getFullYear(),
+					'M+': date.getMonth() + 1,
+					'd+': date.getDate(),
+					'H+': date.getHours(),
+					'm+': date.getMinutes(),
+					's+': date.getSeconds()
+				}
+				for (let k in o) {
+					if (new RegExp(`(${k})`).test(fmt)) {
+						let str = o[k] + ''
+						fmt = fmt.replace(RegExp.$1, RegExp.$1.length === 1 ? str : ('00' + str).substr(str.length));
+					}
+				}
+				return timeChar + fmt
+			},
+			/**
+			 * @author   :micah
+			 * @param     :timestamp 待处理时间 day 如果不传默认为0 传了则判断是否为该天数时间内
+			 * @return    :是或否
+			 * @Description: 判断时间是否在指定范围的方法
+			 * @Date       :2021/8/28
+			 */
+			compareDate(timestamp, day = 0) {
+				// timestamp 为要传入的时间戳
+				// day 为要减去的日子 因为比较*当天*的话，是不需要减的，所以默认定义成0,
+
+				// 根据上面分析，有些需要参数`time`，有些不需要，所以使用一个函数来区分一下
+				let newDate = (time = null) => {
+					return time === null ? new Date() : new Date(time)
+				}
+				// 这里返回 比较后的值，比较成功，则返回`true`，失败则返回`false`
+				return (newDate(timestamp).getDate() == newDate().getDate() - day) && (newDate(timestamp).getMonth() ==
+					newDate().getMonth()) && (newDate(timestamp).getYear() == newDate().getYear())
+			},
+			/**
+			 * 处理时间显示
+			 */
+			async calcTime() {
+				//格式化图片列表
+				if (this.msgList) {
+					for (let i = 0; i < this.msgList.length; i++) {
+						if (i > 1) {
+							if (this.getTime(this.msgList[i - 1].createdate, this.msgList[i].createdate)) {
+								//如果相差不超过五分钟则省略时间显示
+								this.msgList[i].hidetime = true
+							}
+						}
+					}
+				}
+			},
+			/**
+			 * 判断两个时间是否相差[五(变量)]分钟
+			 */
+			getTime(beginTime, endTime) {
+				//2021-06-30 01:25:33
+				if (endTime.substring(0, endTime.indexOf(":") - 1) != beginTime.substring(0, beginTime.indexOf(":") - 1))
+					return false;
+				endTime = endTime.substring(endTime.indexOf(":") + 1, endTime.indexOf(":") + 3)
+				beginTime = beginTime.substring(beginTime.indexOf(":") + 1, beginTime.indexOf(":") + 3)
+				return 5 > (endTime - beginTime)
+			},
+			previewImg(msg) {
+				let index = 0;
+				for (let i = 0; i < this.imgList.length; i++) {
+					if (this.imgList[i] == msg) {
+						index = i;
+					}
+				}
+				uni.previewImage({
+					current: index,
+					urls: this.imgList,
+					longPressActions: {
+						itemList: ['发送给朋友', '保存图片', '收藏'],
+						success: function(data) {
+							console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
+						},
+						fail: function(err) {
+							console.log(err.errMsg);
+						}
+					}
+				});
+			}
+		}
+	}
 </script>
 
 <style lang="scss">
-// 列表样式
-.msg {
-  height: 100%;
+	.padbt {
+		height: var(--status-bar-height);
+		width: 100%;
+	}
 
-  .msg-room {
-    margin: 50rpx $uni-spacing-col-base 120rpx $uni-spacing-col-base;
-    display: flex;
-    flex-direction: column;
-
-
-    .msg-item {
-
-      .msg-item-time {
-        //display: flex;
-        font-size: $uni-font-size-sm;
-        color: $uni-text-color-grey;
-
-        line-height: 34rpx;
-        text-align: center;
-        padding: 20rpx 0;
-      }
-
-      .msg-bottom {
-        flex: auto;
-        display: flex;
-        padding: 20rpx 0;
-
-        .msg-item-img {
-
-          .user_pic {
-            flex: none;
-            width: $uni-img-size-sm;
-            height: $uni-img-size-sm;
-            border-radius: $uni-border-radius-base;
-          }
-
-        }
-
-        .msg-item-msg {
-          max-width: 480rpx;
-          flex: auto;
-          .msg-text {
-
-            font-size: $uni-font-size-lg;
-            color: $uni-text-color;
-            line-height: 88rpx;
-            padding: 18rpx 24rpx;
-          }
-        }
-      }
-
-    }
-
-    .msg-left {
-      flex-direction: row;
-
-      .msg-text {
-        margin-left: 16rpx;
-        background-color: #fff;
-        border-radius: 0 20rpx 20rpx 20rpx;
-      }
-    }
-
-    .msg-right {
-      flex-direction: row-reverse;
-
-      .msg-text {
-        margin-right: 16rpx;
-        background-color: $uni-color-primary;
-        border-radius: 20rpx 0rpx 20rpx 20rpx;
-        color: white!important;
-      }
-    }
+	// 列表样式
+	.msg {
+		height: 90vh;
 
 
-  }
-}
-.body{
-  background-color: $uni-bg-color-grey;
-  width: 100%;
-  height: 100%;
-}
-// 状态栏样式
-/deep/ .uni-navbar__header-btns {
-  overflow: initial !important;
-}
+		.msg-room {
+			margin: 50rpx $uni-spacing-col-base 120rpx $uni-spacing-col-base;
+			display: flex;
+			flex-direction: column;
 
-/deep/ .uni-navbar__header {
-  background: rgba(255, 255, 255, .7);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-}
 
-.bar {
-  .bar-phone {
-    margin-right: 8px;
-  }
+			.msg-item {
 
-  .bar-left {
-    display: flex;
+				.msg-item-time {
+					//display: flex;
+					font-size: $uni-font-size-sm;
+					color: $uni-text-color-grey;
 
-    .name {
-      font-size: $uni-font-size-lg;
-      color: $uni-text-color;
-      line-height: 60rpx;
-      text-align: center;
-      vertical-align: middle;
-      height: 60rpx;
-      justify-content: center;
-      margin-left: $uni-spacing-col-lg;
+					line-height: 34rpx;
+					text-align: center;
+					padding: 20rpx 0;
+				}
 
-    }
-  }
-}
+				.msg-bottom {
+					// flex: auto;
+					display: flex;
+					padding: 20rpx 0;
+
+					.msg-item-img {
+
+						.user_pic {
+							flex: none;
+							width: $uni-img-size-sm;
+							height: $uni-img-size-sm;
+							border-radius: $uni-border-radius-base;
+						}
+
+					}
+
+					.msg-item-msg {
+						max-width: 480rpx;
+						flex: none;
+
+						.msg-text {
+							word-wrap: break-word;
+							font-size: $uni-font-size-lg;
+							color: $uni-text-color;
+							line-height: 54rpx;
+							padding: 18rpx 24rpx;
+						}
+
+						.msg-pic {
+							max-width: 400rpx;
+							border-radius: $uni-border-radius-base;
+						}
+					}
+				}
+
+			}
+
+			.msg-left {
+				flex-direction: row;
+
+				.msg-text {
+					margin-left: 20rpx;
+					background-color: #fff;
+					border-radius: 0 20rpx 20rpx 20rpx;
+				}
+
+				.msg-pic {
+					margin-left: 20rpx;
+				}
+			}
+
+			.msg-right {
+				flex-direction: row-reverse;
+
+				.msg-text {
+					margin-right: 20rpx;
+					background-color: $uni-color-primary;
+					border-radius: 20rpx 0rpx 20rpx 20rpx;
+					color: white !important;
+				}
+
+				.msg-pic {
+					margin-right: 20rpx;
+				}
+			}
+
+
+		}
+	}
+
+	.body {
+		background-color: $uni-bg-color-grey;
+		width: 100%;
+		height: 100%;
+	}
+
+	// 状态栏样式
+	/deep/ .uni-navbar__header-btns {
+		overflow: initial !important;
+	}
+
+	/deep/ .uni-navbar__header {
+		background: rgba(255, 255, 255, .7);
+		-webkit-backdrop-filter: blur(10px);
+		backdrop-filter: blur(10px);
+	}
+
+	.bar {
+		.bar-phone {
+			margin-right: 8px;
+		}
+
+		.bar-left {
+			display: flex;
+
+			.name {
+				font-size: $uni-font-size-lg;
+				color: $uni-text-color;
+				line-height: 60rpx;
+				text-align: center;
+				vertical-align: middle;
+				height: 60rpx;
+				justify-content: center;
+				margin-left: $uni-spacing-col-lg;
+
+			}
+		}
+	}
 </style>
