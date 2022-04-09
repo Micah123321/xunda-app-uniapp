@@ -25,36 +25,38 @@
 		</uni-nav-bar>
 
 		<!-- 消息列表 -->
-
-		<scroll-view class="msg" scroll-with-animation="true" scroll-y="true" :scroll-into-view="scrollToView">
-			<view class="msg-room">
-				<view :key="index" v-for="(list,index) in msgList" class="msg-item" :id="'msg'+list.id">
-					<view v-if="!list.hidetime" class="msg-item-time">
-						{{ formatDate1(list.createdate, 'HH:mm') }}
-					</view>
-					<view class="msg-bottom" :class="list.userId==10000?'msg-right':'msg-left' ">
-						<view class="msg-item-img">
-							<image class="user_pic" :src="list.userPic"></image>
+		<view class="box">
+			<scroll-view class="msg" scroll-with-animation="true" scroll-y="true" :scroll-into-view="scrollToView">
+				<view class="msg-room">
+					<view :key="index" v-for="(list,index) in msgList" class="msg-item" :id="'msg'+list.id">
+						<view v-if="!list.hidetime" class="msg-item-time">
+							{{ formatDate1(list.createdate, 'HH:mm') }}
 						</view>
-						<view class="msg-item-msg">
-
-							<view v-if="list.type===1" v-text="list.content" class="msg-text"></view>
-							<view v-if="list.type===2">
-								<image @click="previewImg(list.content)" class="msg-pic" :src="list.content"
-									mode="widthFix" lazy-load></image>
+						<view class="msg-bottom" :class="list.userId==10000?'msg-right':'msg-left' ">
+							<view class="msg-item-img">
+								<image class="user_pic" :src="list.userPic"></image>
 							</view>
+							<view class="msg-item-msg">
 
+								<view v-if="list.type===1" v-text="list.content" class="msg-text"></view>
+								<view v-if="list.type===2">
+									<image @click="previewImg(list.content)" class="msg-pic" :src="list.content"
+										mode="widthFix" lazy-load></image>
+								</view>
+
+							</view>
 						</view>
+
 					</view>
 
+					<view class="padbt">
+
+					</view>
 				</view>
 
-				<view class="padbt">
+			</scroll-view>
+		</view>
 
-				</view>
-			</view>
-
-		</scroll-view>
 		<!-- 提交框 -->
 		<submit></submit>
 	</view>
@@ -180,7 +182,7 @@
 					{
 						"id": 611,
 						"userId": 10002,
-						"content": "asdasdawdsadawdsadaw",
+						"content": "asdasdawdsadawdsadaasdasdawdsadawdsadawasdasdawdsadawdsadawasdasdawdsadawdsadaww",
 						"createdate": "2022-04-9 11:41:53",
 						"ip": "未知ip",
 						"type": 1,
@@ -316,6 +318,9 @@
 </script>
 
 <style lang="scss">
+	.box{
+		height: 89vh;
+	}
 	//底部可能预存空间
 	.padbt {
 		height: var(--status-bar-height);
@@ -324,8 +329,8 @@
 
 	// 列表样式
 	.msg {
-		//定位需要指定高度
-		height: 90vh;
+		//
+		height: 100%;
 
 
 		.msg-room {

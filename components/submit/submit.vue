@@ -38,6 +38,9 @@
 		box-shadow: 0 -1rpx 0 0 rgba(0, 0, 0, .1);
 	}
 	.submit {
+		// #ifndef H5
+		height: var(--status-bar-height);
+		// #endif
 		background: rgba(255, 255, 255, 0.96);
 		border-top: 2rpx solid $uni-border-color;
 		width: 100%;
