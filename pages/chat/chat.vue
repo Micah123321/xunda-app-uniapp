@@ -316,6 +316,7 @@
 </script>
 
 <style lang="scss">
+	//底部可能预存空间
 	.padbt {
 		height: var(--status-bar-height);
 		width: 100%;
@@ -323,6 +324,7 @@
 
 	// 列表样式
 	.msg {
+		//定位需要指定高度
 		height: 90vh;
 
 
