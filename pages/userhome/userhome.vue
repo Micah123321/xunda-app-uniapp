@@ -6,23 +6,23 @@
 			<uni-nav-bar backgroundColor="transparent" statusBar class="bar" fixed border="false">
 				<block slot="left">
 					<view class="bar-left">
-						<div class="back">
+						<view class="back">
 							<uni-icons @click="back" class="bar-back" size="60rpx" type="back" />
-						</div>
+						</view>
 					</view>
 				</block>
 				<block slot="right">
 					<view class="bar-right">
-						<div class="more">
+						<view class="more">
 							<uni-icons @click="touserinfo" class="bar-more" size="60rpx" type="more-filled" />
-						</div>
+						</view>
 
 					</view>
 				</block>
 			</uni-nav-bar>
 
-			<div class="home">
-				<div class="header">
+			<view class="home">
+				<view class="header">
 					<view class="img">
 						<view :animation="animationData3">
 							<uni-tag class="sex" type="error" :circle="true" text="♀" size="default" />
@@ -32,48 +32,48 @@
 							src="http://cdn.u2.huluxia.com/g3/M03/32/D1/wKgBOVwOEcOANCOcAAHU4KyUJKw015.jpg" alt=""
 							class="user-pic">
 					</view>
-				</div>
+				</view>
 
-				<div class="section">
-					<div class="nickname">xx表妹</div>
-					<div class="username">uid:12306</div>
-					<div class="note">喝多了，乱说的，我们只是好朋友。你干嘛，对不起。我也不知错那里。</div>
-				</div>
+				<view class="section">
+					<view class="nickname">xx表妹</view>
+					<view class="username">uid:12306</view>
+					<view class="note">喝多了，乱说的，我们只是好朋友。你干嘛，对不起。我也不知错那里。</view>
+				</view>
 
-				<div class="footer">
-					<div class="add">
+				<view class="footer">
+					<view class="add">
 						<button @click="showAddArea" class="btn-add" type="primary">加为好友</button>
-					</div>
-				</div>
+					</view>
+				</view>
 
-			</div>
+			</view>
 			<view :animation="animationData" class="add-room">
-				<div class="header"></div>
-				<div class="section">
-					<div class="name">xx表妹</div>
-					<div class="area">
+				<view class="header"></view>
+				<view class="section">
+					<view class="name">xx表妹</view>
+					<view class="area">
 						<textarea class="area-form" value="micah 请求加你好友~" maxlength="120">
 
 						</textarea>
-					</div>
-				</div>
-				<div class="footer">
+					</view>
+				</view>
+				<view class="footer">
 					<uni-row :gutter="30">
 						<uni-col :span="6">
-							<div class="cancle">
+							<view class="cancle">
 								<button class="btn-add" @click="showAddArea">取消</button>
-							</div>
+							</view>
 						</uni-col>
 						<uni-col :span="18">
-							<div class="submit">
+							<view class="submit">
 								<button class="btn-add" type="primary">发送</button>
-							</div>
+							</view>
 						</uni-col>
 
 					</uni-row>
 
 
-				</div>
+				</view>
 			</view>
 
 

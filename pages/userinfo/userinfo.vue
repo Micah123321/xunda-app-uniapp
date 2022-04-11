@@ -6,9 +6,9 @@
 			<uni-nav-bar title="个人信息" statusBar class="bar" fixed border="false">
 				<block slot="left">
 					<view class="bar-left">
-						<div class="back">
+						<view class="back">
 							<uni-icons @click="back" class="bar-back" size="60rpx" type="back" />
-						</div>
+						</view>
 					</view>
 				</block>
 			</uni-nav-bar>
@@ -17,7 +17,7 @@
 				<uni-list-item :showArrow="false">
 
 					<template v-slot:header>
-						<div class="title">头像</div>
+						<view class="title">头像</view>
 					</template>
 					<template v-slot:body>
 						<image-cropper :src="tempFilePath" @confirm="confirm" @cancel="cancel"></image-cropper>
@@ -26,137 +26,137 @@
 						<!-- <image class="user-pic" src="/static/icon/logo.png" mode="widthFix"></image> -->
 					</template>
 					<template v-slot:footer>
-						<div @tap="upload" class="forward">
+						<view @tap="upload" class="forward">
 							<uni-icons color="rgba(39,40,50,0.6)" type="forward"></uni-icons>
-						</div>
+						</view>
 					</template>
 				</uni-list-item>
 				<uni-list-item :border="false">
 
 					<template v-slot:header>
-						<div class="title">签名</div>
+						<view class="title">签名</view>
 					</template>
 					<template v-slot:body>
-						<div class="msg">
+						<view class="msg">
 							啊我打发十分发达奥委会的海湾好地方啊实打实的撒大都市
-						</div>
+						</view>
 					</template>
 					<template v-slot:footer>
-						<div class="forward">
+						<view class="forward">
 							<uni-icons @click="modify('签名','123','msg')" color="rgba(39,40,50,0.6)" type="forward">
 							</uni-icons>
-						</div>
+						</view>
 					</template>
 				</uni-list-item>
 				<uni-list-item :border="false">
 
 					<template v-slot:header>
-						<div class="title">注册</div>
+						<view class="title">注册</view>
 					</template>
 					<template v-slot:body>
-						<div class="msg">
+						<view class="msg">
 							2020-01-01 23:23:23
-						</div>
+						</view>
 					</template>
 
 				</uni-list-item>
 				<uni-list-item>
 
 					<template v-slot:header>
-						<div class="title">昵称</div>
+						<view class="title">昵称</view>
 					</template>
 					<template v-slot:body>
-						<div class="msg">
+						<view class="msg">
 							micah
-						</div>
+						</view>
 					</template>
 					<template v-slot:footer>
-						<div class="forward">
+						<view class="forward">
 							<uni-icons @click="modify('昵称','123','msg')" color="rgba(39,40,50,0.6)" type="forward">
 							</uni-icons>
-						</div>
+						</view>
 					</template>
 				</uni-list-item>
 				<uni-list-item :border="false">
 
 					<template v-slot:header>
-						<div class="title">性别</div>
+						<view class="title">性别</view>
 					</template>
 					<template v-slot:body>
-						<div class="msg">
+						<view class="msg">
 							<uni-data-checkbox mode="button" icon="right" v-model="sexvalue" :localdata="sexrange">
 							</uni-data-checkbox>
-						</div>
+						</view>
 					</template>
 
 				</uni-list-item>
 				<uni-list-item :border="false">
 
 					<template v-slot:header>
-						<div class="title">生日</div>
+						<view class="title">生日</view>
 					</template>
 					<template v-slot:body>
-						<div class="msg">
+						<view class="msg">
 							<uni-datetime-picker ref="datepicker" type="date" :clearIcon="false" v-model="single"
 								:border="false" />
-						</div>
+						</view>
 					</template>
 					<template v-slot:footer>
-						<div class="forward">
+						<view class="forward">
 							<uni-icons @click="showDatePicker" color="rgba(39,40,50,0.6)" type="forward"></uni-icons>
-						</div>
+						</view>
 					</template>
 
 				</uni-list-item>
 				<uni-list-item :border="false">
 
 					<template v-slot:header>
-						<div class="title">电话</div>
+						<view class="title">电话</view>
 					</template>
 					<template v-slot:body>
-						<div class="msg">
+						<view class="msg">
 							18812345432
-						</div>
+						</view>
 					</template>
 					<template v-slot:footer>
-						<div class="forward">
+						<view class="forward">
 							<uni-icons @click="modify('电话','123','msg')" color="rgba(39,40,50,0.6)" type="forward">
 							</uni-icons>
-						</div>
+						</view>
 					</template>
 				</uni-list-item>
 				<uni-list-item :border="false">
 
 					<template v-slot:header>
-						<div class="title">邮箱</div>
+						<view class="title">邮箱</view>
 					</template>
 					<template v-slot:body>
-						<div class="msg">
+						<view class="msg">
 							micah@qq.com
-						</div>
+						</view>
 					</template>
 					<template v-slot:footer>
-						<div class="forward">
+						<view class="forward">
 							<uni-icons @click="modify('邮箱','123','msg')" color="rgba(39,40,50,0.6)" type="forward">
 							</uni-icons>
-						</div>
+						</view>
 					</template>
 				</uni-list-item>
 				<uni-list-item>
 
 					<template v-slot:header>
-						<div class="title">密码</div>
+						<view class="title">密码</view>
 					</template>
 					<template v-slot:body>
-						<div class="msg">
+						<view class="msg">
 							******
-						</div>
+						</view>
 					</template>
 					<template v-slot:footer>
-						<div class="forward">
+						<view class="forward">
 							<uni-icons @click="modify('密码','123','pwd')" color="rgba(39,40,50,0.6)" type="forward">
 							</uni-icons>
-						</div>
+						</view>
 					</template>
 				</uni-list-item>
 
@@ -166,9 +166,9 @@
 
 			</uni-list>
 
-			<div class="exit">
+			<view class="exit">
 				<button class="btn-exit" type="warn">退出登录</button>
-			</div>
+			</view>
 		</view>
 
 		<view :animation="animationData" class="modify">
@@ -309,7 +309,7 @@
 		position: fixed;
 		bottom: -100%;
 		width: 100%;
-    height: 100%;
+		height: 100%;
 		box-sizing: border-box;
 		z-index: 1001;
 

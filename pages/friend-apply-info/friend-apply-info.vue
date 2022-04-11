@@ -4,9 +4,9 @@
 		<uni-nav-bar statusBar class="bar" fixed>
 			<block slot="left">
 				<view class="bar-left">
-					<div class="back">
+					<view class="back">
 						<uni-icons @click="back" class="bar-back" size="60rpx" type="back" />
-					</div>
+					</view>
 				</view>
 			</block>
 			<block slot="right">
@@ -33,14 +33,14 @@
 				<template v-slot:actions>
 					<view class="card-actions">
 						<view class="card-actions-item">
-							<div class="btn-cancle">
+							<view class="btn-cancle">
 								<button plain class="cancle" type="warn">拒绝</button>
-							</div>
+							</view>
 						</view>
 						<view class="card-actions-item">
-							<div class="btn-add">
+							<view class="btn-add">
 								<button  class="accept" type="primary">同意</button>
-							</div>
+							</view>
 						</view>
 
 					</view>
@@ -60,14 +60,14 @@
 				<template v-slot:actions>
 					<view class="card-actions">
 						<view class="card-actions-item">
-							<div class="btn-cancle">
+							<view class="btn-cancle">
 								<button plain class="cancle" type="warn">拒绝</button>
-							</div>
+							</view>
 						</view>
 						<view class="card-actions-item">
-							<div class="btn-add">
+							<view class="btn-add">
 								<button class="accept" type="primary">同意</button>
-							</div>
+							</view>
 						</view>
 
 					</view>

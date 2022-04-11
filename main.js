@@ -4,6 +4,9 @@ import App from './App'
 import Vue from 'vue'
 Vue.config.productionTip = false
 App.mpType = 'app'
+// 安装emoji
+import EvanEmoji from '@/uni_modules/evan-emoji/utils/index.js'
+Vue.use(EvanEmoji)
 const app = new Vue({
     ...App
 })

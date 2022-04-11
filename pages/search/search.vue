@@ -8,9 +8,9 @@
 
 			<block slot="right">
 				<view class="bar-right">
-					<div @click="toindex" class="cancle">
+					<view @click="toindex" class="cancle">
 						取消
-					</div>
+					</view>
 
 				</view>
 			</block>
@@ -22,64 +22,64 @@
 		<!-- 联系人 -->
 		<uni-group class="group-friend">
 			<view>
-				<div class="gorup-title">
-					<div class="span">联系人</div>
-					<div class="more">查看更多
+				<view class="gorup-title">
+					<view class="span">联系人</view>
+					<view class="more">查看更多
 						<uni-icons size="12" type="forward"></uni-icons>
-					</div>
-				</div>
-				<div class="clear"></div>
+					</view>
+				</view>
+				<view class="clear"></view>
 			</view>
 
 			<view class="search-item">
-				<div class="left">
-					<div class="left-img">
-						<img src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
-							class="user_pic">
-					</div>
-					<div class="left-group">
-						<div class="name">micah1(备注)</div>
-						<div class="msg">来自分组:我的好友</div>
-					</div>
-				</div>
-				<div class="right">
-					<div class="icon">
+				<view class="left">
+					<view class="left-img">
+						<image src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
+							class="user_pic"/>
+					</view>
+					<view class="left-group">
+						<view class="name">micah1(备注)</view>
+						<view class="msg">来自分组:我的好友</view>
+					</view>
+				</view>
+				<view class="right">
+					<view class="icon">
 						<uni-icons color="#dee2e6" size="24" type="plus-filled"></uni-icons>
-					</div>
-				</div>
-				<div class="clear"></div>
+					</view>
+				</view>
+				<view class="clear"></view>
 			</view>
 			<view class="search-item">
-				<div class="left">
-					<div class="left-img">
-						<img src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
-							class="user_pic">
-					</div>
-					<div class="left-group">
-						<div class="name">micah2(备注)</div>
-						<div class="msg">来自分组:我的好友</div>
-					</div>
-				</div>
-				<div class="right">
-					<div class="icon">
+				<view class="left">
+					<view class="left-img">
+						<image src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
+							class="user_pic"/>
+					</view>
+					<view class="left-group">
+						<view class="name">micah2(备注)</view>
+						<view class="msg">来自分组:我的好友</view>
+					</view>
+				</view>
+				<view class="right">
+					<view class="icon">
 						<uni-icons color="#dee2e6" size="24" type="plus-filled"></uni-icons>
-					</div>
-				</div>
-				<div class="clear"></div>
+					</view>
+				</view>
+				<view class="clear"></view>
 			</view>
 			<view class="search-item">
-				<div class="left">
-					<div class="left-img">
-						<img src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
-							class="user_pic">
-					</div>
-					<div class="left-group">
-						<div class="name">micah3(小明)</div>
-						<div class="msg">来自分组:家人</div>
-					</div>
-				</div>
+				<view class="left">
+					<view class="left-img">
+						<image src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
+							class="user_pic"/>
+					</view>
+					<view class="left-group">
+						<view class="name">micah3(小明)</view>
+						<view class="msg">来自分组:家人</view>
+					</view>
+				</view>
 
-				<div class="clear"></div>
+				<view class="clear"></view>
 			</view>
 
 
@@ -87,68 +87,68 @@
 		<!-- 群聊 -->
 		<uni-group class="group-group">
 			<view>
-				<div class="gorup-title">
-					<div class="span">群聊</div>
-					<div class="more">查看更多
+				<view class="gorup-title">
+					<view class="span">群聊</view>
+					<view class="more">查看更多
 						<uni-icons size="12" type="forward"></uni-icons>
-					</div>
-				</div>
-				<div class="clear"></div>
+					</view>
+				</view>
+				<view class="clear"></view>
 			</view>
 
 			<view class="search-item">
-				<div class="left">
-					<div class="left-img">
-						<img src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
-							class="user_pic">
-					</div>
-					<div class="left-group">
-						<div class="name">xx1群</div>
-						<div class="msg-group">(123456)</div>
-					</div>
-				</div>
-				<div class="right">
-					<div class="icon">
+				<view class="left">
+					<view class="left-img">
+						<image src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
+							class="user_pic"/>
+					</view>
+					<view class="left-group">
+						<view class="name">xx1群</view>
+						<view class="msg-group">(123456)</view>
+					</view>
+				</view>
+				<view class="right">
+					<view class="icon">
 						<uni-icons color="#dee2e6" size="24" type="plus-filled"></uni-icons>
-					</div>
-				</div>
-				<div class="clear"></div>
+					</view>
+				</view>
+				<view class="clear"></view>
 			</view>
 			<view class="search-item">
-				<div class="left">
-					<div class="left-img">
-						<img src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
-							class="user_pic">
-					</div>
-					<div class="left-group">
-						<div class="name">xx2群</div>
-						<div class="msg-group">(223456)</div>
-					</div>
-				</div>
-				<div class="right">
-					<div class="icon">
+				<view class="left">
+					<view class="left-img">
+						<image src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
+							class="user_pic"/>
+					</view>
+					<view class="left-group">
+						<view class="name">xx2群</view>
+						<view class="msg-group">(223456)</view>
+					</view>
+				</view>
+				<view class="right">
+					<view class="icon">
 						<uni-icons color="#dee2e6" size="24" type="plus-filled"></uni-icons>
-					</div>
-				</div>
-				<div class="clear"></div>
+					</view>
+				</view>
+				<view class="clear"></view>
 			</view>
 			<view class="search-item">
-				<div class="left">
-					<div class="left-img">
-						<img src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
-							class="user_pic">
-					</div>
-					<div class="left-group">
-						<div class="name">xx3群</div>
-						<div class="msg-group">(323456)</div>
-					</div>
-				</div>
-				<div class="right">
-					<div class="icon">
+				<view class="left">
+					<view class="left-img">
+						<image src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
+							class="user_pic"/>
+					</view>
+					<view class="left-group">
+						<view class="name">xx3群</view>
+						<view class="msg-group">(323456)</view>
+					</view>
+				</view>
+				<view class="right">
+					<view class="icon">
 						<uni-icons color="#dee2e6" size="24" type="plus-filled"></uni-icons>
-					</div>
-				</div>
-				<div class="clear"></div>
+					</view>
+				</view>
+				<view class="clear"></view>
 			</view>
 		</uni-group>
 
@@ -157,56 +157,56 @@
 
 		<uni-group class="group-history">
 			<view>
-				<div class="gorup-title">
-					<div class="span">聊天记录</div>
-					<div class="more">查看更多
+				<view class="gorup-title">
+					<view class="span">聊天记录</view>
+					<view class="more">查看更多
 						<uni-icons size="12" type="forward"></uni-icons>
-					</div>
-				</div>
-				<div class="clear"></div>
+					</view>
+				</view>
+				<view class="clear"></view>
 			</view>
 
 			<view class="search-item">
-				<div class="left">
-					<div class="left-img">
-						<img src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
-							class="user_pic">
-					</div>
-					<div class="left-group">
-						<div class="name">xx好友</div>
-						<div class="msg">你的平a</div>
-					</div>
-				</div>
+				<view class="left">
+					<view class="left-img">
+						<image src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
+							class="user_pic"/>
+					</view>
+					<view class="left-group">
+						<view class="name">xx好友</view>
+						<view class="msg">你的平a</view>
+					</view>
+				</view>
 
-				<div class="clear"></div>
+				<view class="clear"></view>
 			</view>
 			<view class="search-item">
-				<div class="left">
-					<div class="left-img">
-						<img src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
-							class="user_pic">
-					</div>
-					<div class="left-group">
-						<div class="name">xx群聊1</div>
-						<div class="msg">11条与"a"相关记录</div>
-					</div>
-				</div>
+				<view class="left">
+					<view class="left-img">
+						<image src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
+							class="user_pic"/>
+					</view>
+					<view class="left-group">
+						<view class="name">xx群聊1</view>
+						<view class="msg">11条与"a"相关记录</view>
+					</view>
+				</view>
 
-				<div class="clear"></div>
+				<view class="clear"></view>
 			</view>
 			<view class="search-item">
-				<div class="left">
-					<div class="left-img">
-						<img src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
-							class="user_pic">
-					</div>
-					<div class="left-group">
-						<div class="name">xx群聊2</div>
-						<div class="msg">11条与"a"相关记录</div>
-					</div>
-				</div>
+				<view class="left">
+					<view class="left-img">
+						<image src="http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg" alt=""
+							class="user_pic"/>
+					</view>
+					<view class="left-group">
+						<view class="name">xx群聊2</view>
+						<view class="msg">11条与"a"相关记录</view>
+					</view>
+				</view>
 
-				<div class="clear"></div>
+				<view class="clear"></view>
 			</view>
 		</uni-group>
 

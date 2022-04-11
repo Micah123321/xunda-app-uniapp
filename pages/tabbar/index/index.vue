@@ -5,11 +5,11 @@
 		<uni-nav-bar dark fixed color="rgba(39,40,50,1)" border backgroundColor="#ffffff" statusBar title="xunda">
 			<block slot="left">
 				<view class="bar-left">
-					<div class="head-img">
-						<img @click="goHome"
+					<view class="head-img">
+						<image @click="goHome"
 							src="https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/defaultpic.png" alt=""
-							class="user_pic">
-					</div>
+							class="user_pic"></image>
+					</view>
 				</view>
 			</block>
 			<block slot="right">
@@ -26,23 +26,22 @@
 			<uni-swipe-action-item @click="bindClick" :key="index" v-for="(list,index) in dataList"
 				:right-options="options" @change="swipeChange($event, index)">
 				<view @click="clickmsg(list,index)" class="msg-item">
-					<div class="left">
-						<div class="msg-item-img">
-
-							<img :src="list.userPic" alt="" class="user_pic">
+					<view class="left">
+						<view class="msg-item-img">
+							<image :src="list.userPic" class="user_pic">
 							<uni-badge class="msg-item-img-tag" text="1" />
 							<!-- <uni-tag class="msg-item-img-tag" text="1" type="error" :circle="true"></uni-tag> -->
-						</div>
-					</div>
-					<div class="right">
-						<div class="top">
-							<div class="msg-item-time">{{ formatDate1(list.createdate, 'HH:mm') }}</div>
-							<div class="msg-item-name">{{list.nickname}}</div>
-						</div>
+						</view>
+					</view>
+					<view class="right">
+						<view class="top">
+							<view class="msg-item-time">{{ formatDate1(list.createdate, 'HH:mm') }}</view>
+							<view class="msg-item-name">{{list.nickname}}</view>
+						</view>
 
-						<div class="msg-item-msg">{{list.content}}</div>
+						<view class="msg-item-msg">{{list.content}}</view>
 
-					</div>
+					</view>
 				</view>
 			</uni-swipe-action-item>
 		</uni-swipe-action>
@@ -76,7 +75,7 @@
 						"ip": "未知ip",
 						"type": 1,
 						"nickname": "好友申请",
-						"userPic": "https://oss.xiaomao6.com/mkoss/2022/04/04/b7daf28b.png",
+						"userPic":'/static/icon/friend_add_icon.png',
 						"reback": 0
 					},
 					{

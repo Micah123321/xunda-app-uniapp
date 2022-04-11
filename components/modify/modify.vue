@@ -4,9 +4,9 @@
 		<uni-nav-bar statusBar class="bar">
 			<block slot="left">
 				<view class="bar-left">
-					<div @click="cancle" class="cancle">
+					<view @click="cancle" class="cancle">
 						取消
-					</div>
+					</view>
 				</view>
 			</block>
 			<block slot="default">
@@ -16,9 +16,9 @@
 			</block>
 			<block slot="right">
 				<view class="bar-right">
-					<div @click="ok" class="ok">
+					<view @click="ok" class="ok">
 						确定
-					</div>
+					</view>
 				</view>
 			</block>
 		</uni-nav-bar>

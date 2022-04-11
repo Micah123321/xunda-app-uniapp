@@ -4,36 +4,36 @@
 		<uni-nav-bar statusBar class="bar" fixed border="false">
 			<block slot="left">
 				<view class="bar-left">
-					<div class="exit">
+					<view class="exit">
 						<uni-icons @click="back" class="bar-close" size="60rpx" type="closeempty" />
-					</div>
+					</view>
 				</view>
 			</block>
 			<block slot="right">
 				<view class="bar-right">
-					<div @click="toreg" class="reg">
+					<view @click="toreg" class="reg">
 						注册
-					</div>
+					</view>
 
 				</view>
 			</block>
 		</uni-nav-bar>
 		<!-- 注册页面 -->
-		<div class="login">
-			<div class="login-logo">
+		<view class="login">
+			<view class="login-logo">
 
-				<img class="login-logo-img"
-					src="https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/defaultpic.png" alt="">
-			</div>
-			<div class="title">
+				<image class="login-logo-img"
+					src="https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/defaultpic.png" alt=""/>
+			</view>
+			<view class="title">
 
-				<div class="h1">
+				<view class="h1">
 					<uni-title type="h1" title="登录 "></uni-title>
-				</div>
-				<div class="h2">你好,欢迎来到xunda</div>
+				</view>
+				<view class="h2">你好,欢迎来到xunda</view>
 
-			</div>
-			<div class="form">
+			</view>
+			<view class="form">
 				<uni-forms ref="customForm" :rules="customRules" :modelValue="customFormData">
 					<uni-forms-item class="username" name="username">
 						<uni-easyinput v-model="customFormData.username" placeholder="用户名/手机号" />
@@ -42,11 +42,11 @@
 						<uni-easyinput type="password" v-model="customFormData.pwd" placeholder="密码" />
 					</uni-forms-item>
 				</uni-forms>
-			</div>
-			<div class="btn">
+			</view>
+			<view class="btn">
 				<button class="btn-submit" type="primary" @click="submit('customForm')">登录</button>
-			</div>
-		</div>
+			</view>
+		</view>
 	</view>
 </template>
 

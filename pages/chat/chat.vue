@@ -27,7 +27,7 @@
 		<!-- 消息列表 -->
 		<view class="box">
 			<scroll-view class="msg" scroll-with-animation="true" scroll-y="true" :scroll-into-view="scrollToView">
-				<view class="msg-room">
+				<view :style="'paddingBottom:'+bottomHeight+'px'" class="msg-room">
 					<view :key="index" v-for="(list,index) in msgList" class="msg-item" :id="'msg'+list.id">
 						<view v-if="!list.hidetime" class="msg-item-time">
 							{{ formatDate1(list.createdate, 'HH:mm') }}
@@ -49,16 +49,14 @@
 
 					</view>
 
-					<view class="padbt">
-
-					</view>
+					<view class="padbt"></view>
 				</view>
 
 			</scroll-view>
 		</view>
 
 		<!-- 提交框 -->
-		<submit></submit>
+		<submit @getEmojiHeight='getEmojiHeight' @sendmsg='sendmsg'></submit>
 	</view>
 </template>
 
@@ -84,15 +82,59 @@
 					"http://119.91.141.30/oos/2021-12-29/5b39f130-1c5c-4d78-8644-7398ca3eac45",
 					"http://119.91.141.30/oos/2021-12-19/a1fc2c6f-fe54-4ba7-87d3-1e1ab4f61164"
 				],
-				msgList: [
-
-				]
+				msgList: [],
+				bottomHeight: 55
 			}
 		},
 		onLoad() {
 			this.getMsgData()
 		},
 		methods: {
+			formatDateTime(date) {
+				var y = date.getFullYear();
+				var m = date.getMonth() + 1; //注意这个“+1”
+				m = m < 10 ? ('0' + m) : m;
+				var d = date.getDate();
+				d = d < 10 ? ('0' + d) : d;
+			 var h = date.getHours();
+				h = h < 10 ? ('0' + h) : h;
+				var minute = date.getMinutes();
+				minute = minute < 10 ? ('0' + minute) : minute;
+				var second = date.getSeconds();
+				second = second < 10 ? ('0' + second) : second;
+				return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;
+			},
+			toButtom() {
+				// 到达数据底层
+				this.scrollToView = ''
+				this.$nextTick(function() {
+					this.scrollToView = "msg" + this.msgList[this.msgList.length - 1].id
+				})
+			},
+			getEmojiHeight(height) {
+				// console.log(height);
+				this.bottomHeight = height
+				this.toButtom()
+			},
+			sendmsg(msg) { //接收到发送方法
+				let data = {
+					"id": this.msgList[this.msgList.length - 1].id + 1,
+					"userId": 10000,
+					"content": msg,
+					"createdate": this.formatDateTime(new Date()),
+					"ip": "未知ip",
+					"type": 1,
+					"nickname": "micah",
+					"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/45d695d1-ab4c-4bef-8a0d-e74e3f188a8b_defaultpic.png",
+					"reback": 0,
+					"extra": null,
+					"userReceiveId": null
+				}
+				this.msgList.push(data)
+				this.toButtom()
+				this.calcTime()
+
+			},
 			back() {
 				uni.navigateBack({
 					delta: 1,
@@ -196,11 +238,8 @@
 
 				//格式化时间
 				this.calcTime()
+				this.toButtom()
 
-				// 到达数据底层
-				this.$nextTick(function() {
-					this.scrollToView = "msg" + this.msgList[this.msgList.length - 1].id
-				})
 
 
 			},
@@ -318,12 +357,15 @@
 </script>
 
 <style lang="scss">
-	.box{
-		height: 89vh;
+	.box {
+		height: 100vh;
 	}
+
 	//底部可能预存空间
 	.padbt {
-		height: var(--status-bar-height);
+		// #ifndef H5
+		height: 50rpx;
+		// #endif
 		width: 100%;
 	}
 
@@ -337,6 +379,7 @@
 			margin: 50rpx $uni-spacing-col-base 120rpx $uni-spacing-col-base;
 			display: flex;
 			flex-direction: column;
+			// padding-bottom: 100rpx;
 
 
 			.msg-item {
