@@ -1,0 +1,17 @@
+{
+    "id": "oveui-grid",
+    "name": "简单好用的宫格组件Grid",
+    "version": "1.4.0102",
+    "description": "Grid宫格组件，包含grid、grid-item两个组件，简单易用，要用uni_modules版本 请移步 https://ext.dcloud.net.cn/plugin?id=6356",
+    "keywords": [
+        "宫格组件",
+        "grid",
+        "grid-item"
+    ],
+    "dcloudext": {
+        "category": [
+            "前端组件",
+            "通用组件"
+        ]
+    }
+}

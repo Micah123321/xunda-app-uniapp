@@ -37,12 +37,32 @@
 								<image class="user_pic" :src="list.userPic"></image>
 							</view>
 							<view class="msg-item-msg">
-
+								<!-- 普通文本信息 -->
 								<view v-if="list.type===1" v-text="list.content" class="msg-text"></view>
+								<!-- 图片信息 -->
 								<view v-if="list.type===2">
 									<image @click="previewImg(list.content)" class="msg-pic" :src="list.content"
 										mode="widthFix" lazy-load></image>
 								</view>
+								<!-- 文件 -->
+								<!-- 视频 -->
+								<!-- 转发 -->
+								<!-- 录音 -->
+								<view class="voice-room" v-if="list.type===6">
+
+									<view @click="playVoice(list.content.voice)"
+										:style="{width:list.content.time*2+40+'px'}" class="msg-text msg-voice">
+										<span v-show="list.userId==10000">
+											{{list.content.time+"''"}}
+										</span>
+										<uni-icons class="sound-icon" :color="list.userId==10000?'white':'black' "
+											type="sound-filled" size="36rpx"></uni-icons>
+										<span v-show="list.userId!=10000">
+											{{list.content.time+"''"}}
+										</span>
+									</view>
+								</view>
+
 
 							</view>
 						</view>
@@ -56,11 +76,12 @@
 		</view>
 
 		<!-- 提交框 -->
-		<submit @getEmojiHeight='getEmojiHeight' @sendmsg='sendmsg'></submit>
+		<submit @getSubmitHeight='getSubmitHeight' @sendmsg='sendmsg'></submit>
 	</view>
 </template>
 
 <script>
+	const innerAudioContext = uni.createInnerAudioContext();
 	import submit from '@/components/submit/submit.vue';
 	export default {
 		components: {
@@ -90,13 +111,28 @@
 			this.getMsgData()
 		},
 		methods: {
+			playVoice(url) {
+				if (innerAudioContext.src == url) {
+					// innerAudioContext.loop=true;
+					innerAudioContext.play();
+				} else {
+					innerAudioContext.autoplay = true;
+					innerAudioContext.src = url;
+					innerAudioContext.onPlay(() => {
+						console.log('开始播放');
+					});
+				}
+
+
+
+			},
 			formatDateTime(date) {
 				var y = date.getFullYear();
 				var m = date.getMonth() + 1; //注意这个“+1”
 				m = m < 10 ? ('0' + m) : m;
 				var d = date.getDate();
 				d = d < 10 ? ('0' + d) : d;
-			 var h = date.getHours();
+				var h = date.getHours();
 				h = h < 10 ? ('0' + h) : h;
 				var minute = date.getMinutes();
 				minute = minute < 10 ? ('0' + minute) : minute;
@@ -111,19 +147,19 @@
 					this.scrollToView = "msg" + this.msgList[this.msgList.length - 1].id
 				})
 			},
-			getEmojiHeight(height) {
+			getSubmitHeight(height) {
 				// console.log(height);
 				this.bottomHeight = height
 				this.toButtom()
 			},
-			sendmsg(msg) { //接收到发送方法
+			sendmsg(msg, type) { //接收到发送方法
 				let data = {
 					"id": this.msgList[this.msgList.length - 1].id + 1,
 					"userId": 10000,
 					"content": msg,
 					"createdate": this.formatDateTime(new Date()),
 					"ip": "未知ip",
-					"type": 1,
+					"type": type,
 					"nickname": "micah",
 					"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/45d695d1-ab4c-4bef-8a0d-e74e3f188a8b_defaultpic.png",
 					"reback": 0,
@@ -131,6 +167,9 @@
 					"userReceiveId": null
 				}
 				this.msgList.push(data)
+				if (type == 2) {
+					this.imgList.push(msg)
+				}
 				this.toButtom()
 				this.calcTime()
 
@@ -228,6 +267,38 @@
 						"createdate": "2022-04-9 11:41:53",
 						"ip": "未知ip",
 						"type": 1,
+						"nickname": "张三",
+						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png",
+						"reback": 0,
+						"extra": null,
+						"userReceiveId": null
+					},
+					{
+						"id": 612,
+						"userId": 10000,
+						"content": {
+							time: 20,
+							voice: ''
+						},
+						"createdate": "2022-04-9 11:41:53",
+						"ip": "未知ip",
+						"type": 6,
+						"nickname": "张三",
+						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png",
+						"reback": 0,
+						"extra": null,
+						"userReceiveId": null
+					},
+					{
+						"id": 613,
+						"userId": 10002,
+						"content": {
+							time: 6,
+							voice: ''
+						},
+						"createdate": "2022-04-9 11:41:53",
+						"ip": "未知ip",
+						"type": 6,
 						"nickname": "张三",
 						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png",
 						"reback": 0,
@@ -374,7 +445,6 @@
 		//
 		height: 100%;
 
-
 		.msg-room {
 			margin: 50rpx $uni-spacing-col-base 120rpx $uni-spacing-col-base;
 			display: flex;
@@ -414,6 +484,8 @@
 						max-width: 480rpx;
 						flex: none;
 
+
+
 						.msg-text {
 							word-wrap: break-word;
 							font-size: $uni-font-size-lg;
@@ -434,6 +506,19 @@
 			.msg-left {
 				flex-direction: row;
 
+				.voice-room {
+					.msg-voice {
+						.sound-icon {
+							// float: left;
+						}
+
+						span {
+							float: right;
+						}
+					}
+
+				}
+
 				.msg-text {
 					margin-left: 20rpx;
 					background-color: #fff;
@@ -447,6 +532,12 @@
 
 			.msg-right {
 				flex-direction: row-reverse;
+
+				.sound-icon {
+					float: right;
+					transform: rotate(180deg);
+					display: inline-block;
+				}
 
 				.msg-text {
 					margin-right: 20rpx;

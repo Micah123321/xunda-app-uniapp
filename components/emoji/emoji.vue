@@ -46,7 +46,7 @@
 <style lang="scss">
 	.emoji {
 		width: 100%;
-		// height: 480rpx;
+		height: 400rpx;
 		background: rgba(255, 255, 255, 0.96);
 		box-shadow: 0 -1rpx 0 0 rgba(0, 0, 0, .1);
 	}

@@ -240,6 +240,7 @@ export default {
     display: inline-block;
     box-sizing: border-box;
     padding: 6rpx 14rpx;
+    font-size: $uni-font-size-base;
 
     &.actived {
       background-color: var(--bg-color);
