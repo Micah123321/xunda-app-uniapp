@@ -52,9 +52,11 @@
     "mp-weixin" : {
         "appid" : "",
         "setting" : {
-            "urlCheck" : false
+            "urlCheck" : false,
+            "minified" : true
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "permission" : {}
     },
     "mp-alipay" : {
         "usingComponents" : true
@@ -68,5 +70,22 @@
     "uniStatistics" : {
         "enable" : false
     },
-    "vueVersion" : "2"
+    "vueVersion" : "2",
+    "h5" : {
+        "title" : "xunda-app",
+        "router" : {
+            "mode" : "hash"
+        },
+        "devServer" : {
+            "https" : false,
+            "disableHostCheck" : true
+        },
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : "IFXBZ-YMCLP-V4IDT-LIDAB-NEFT6-53FHF"
+                }
+            }
+        }
+    }
 }

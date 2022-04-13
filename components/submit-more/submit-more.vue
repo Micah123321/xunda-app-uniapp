@@ -5,28 +5,21 @@
 			<swiper class="swiper" :indicator-dots="true">
 				<swiper-item>
 					<o-grid class="swiper" col="4" gutter square radius size="sm">
-						<o-grid-item @click="uploadPic('album')" text="相册" icon="image"></o-grid-item>
-						<o-grid-item @click="uploadPic('camera')" text="拍摄" icon="camera"></o-grid-item>
-						<o-grid-item text="文件" icon="upload"></o-grid-item>
-						<o-grid-item text="视频通话" icon="phone"></o-grid-item>
+						<o-grid-item @click="submitPic('album')" text="相册" icon="image"></o-grid-item>
+						<o-grid-item @click="submitPic('camera')" text="拍摄" icon="camera"></o-grid-item>
+						<o-grid-item text="文件" icon="folder-add"></o-grid-item>
 						<o-grid-item text="视频" icon="videocam"></o-grid-item>
+						<o-grid-item text="视频通话" icon="phone"></o-grid-item>
 						<o-grid-item text="语音输入" icon="mic"></o-grid-item>
-						<o-grid-item text="位置" icon="location"></o-grid-item>
-						<o-grid-item text="音乐" icon="sound"></o-grid-item>
+						<o-grid-item @click="switchLocation" text="位置" icon="location"></o-grid-item>
+						<o-grid-item text="音乐" icon="headphones"></o-grid-item>
 					</o-grid>
 				</swiper-item>
-				<!-- 				<swiper-item>
+				<swiper-item>
 					<o-grid class="swiper" col="4" gutter square radius size="sm">
-						<o-grid-item text="相册" icon="image"></o-grid-item>
-						<o-grid-item text="拍摄" icon="camera"></o-grid-item>
-						<o-grid-item text="文件" icon="upload"></o-grid-item>
-						<o-grid-item text="视频通话" icon="phone"></o-grid-item>
-						<o-grid-item text="视频" icon="videocam"></o-grid-item>
-						<o-grid-item text="语音输入" icon="mic"></o-grid-item>
-						<o-grid-item text="位置" icon="location"></o-grid-item>
-						<o-grid-item text="音乐" icon="sound"></o-grid-item>
+						<o-grid-item text="收藏" icon="star"></o-grid-item>
 					</o-grid>
-				</swiper-item> -->
+				</swiper-item>
 			</swiper>
 
 
@@ -39,7 +32,18 @@
 	export default {
 		name: "submit-more",
 		methods: {
-			uploadPic(type) {
+			switchLocation() { //选择位置
+				uni.chooseLocation({
+					success: function(res) {
+						console.log('位置名称：' + res.name);
+						console.log('详细地址：' + res.address);
+						console.log('纬度：' + res.latitude);
+						console.log('经度：' + res.longitude);
+					}
+				});
+
+			},
+			submitPic(type) { //提交图片
 				let count;
 				if (type == 'album') {
 					count = 9;

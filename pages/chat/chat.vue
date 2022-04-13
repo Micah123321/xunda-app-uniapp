@@ -27,7 +27,8 @@
 		<!-- 消息列表 -->
 		<view class="box">
 			<scroll-view class="msg" scroll-with-animation="true" scroll-y="true" :scroll-into-view="scrollToView">
-				<view :style="'paddingBottom:'+bottomHeight+'px'" class="msg-room">
+				<view @touchstart="msgroomclick" @touchmove="msgroomtouchmove"
+					:style="'paddingBottom:'+bottomHeight+'px'" class="msg-room">
 					<view :key="index" v-for="(list,index) in msgList" class="msg-item" :id="'msg'+list.id">
 						<view v-if="!list.hidetime" class="msg-item-time">
 							{{ formatDate1(list.createdate, 'HH:mm') }}
@@ -76,11 +77,12 @@
 		</view>
 
 		<!-- 提交框 -->
-		<submit @getSubmitHeight='getSubmitHeight' @sendmsg='sendmsg'></submit>
+		<submit ref="submit" @getSubmitHeight='getSubmitHeight' @sendmsg='sendmsg'></submit>
 	</view>
 </template>
 
 <script>
+	import global_ from '@/common/js/Global.js' //引用全局模块
 	const innerAudioContext = uni.createInnerAudioContext();
 	import submit from '@/components/submit/submit.vue';
 	export default {
@@ -90,6 +92,7 @@
 		data() {
 			return {
 				scrollToView: '',
+				pageY: '', //触摸y轴
 				customStyle: { //导航栏标题样式
 					backgroundColor: 'rgba(244, 244, 244, 0.96)',
 					color: '#272832',
@@ -111,21 +114,29 @@
 			this.getMsgData()
 		},
 		methods: {
-			playVoice(url) {
-				if (innerAudioContext.src == url) {
-					// innerAudioContext.loop=true;
-					innerAudioContext.play();
-				} else {
-					innerAudioContext.autoplay = true;
-					innerAudioContext.src = url;
-					innerAudioContext.onPlay(() => {
-						console.log('开始播放');
-					});
-				}
-
-
-
+			msgroomclick(e) {
+				this.pageY = e.changedTouches[0].pageY
+				// console.log(e);
 			},
+			msgroomtouchmove(e) {
+				//TODO 滑动聊天页面取消下顶框
+				if (global_.isSubmit) {
+					// console.log(this.pageY,e.changedTouches[0].pageY);
+
+					if (e.changedTouches[0].pageY - this.pageY > 150) {
+						this.$refs.submit.returnToOriginal()
+						
+					}
+				}
+			},
+			playVoice(url) { //播放声音
+				innerAudioContext.src = url;
+				innerAudioContext.play();
+			},
+			/**
+			 * 格式日期为 yyyy-MM-dd
+			 * @param {Object} date 日期
+			 */
 			formatDateTime(date) {
 				var y = date.getFullYear();
 				var m = date.getMonth() + 1; //注意这个“+1”
@@ -140,17 +151,23 @@
 				second = second < 10 ? ('0' + second) : second;
 				return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;
 			},
-			toButtom() {
-				// 到达数据底层
+			toButtom() { // 到达数据底层
 				this.scrollToView = ''
-				this.$nextTick(function() {
-					this.scrollToView = "msg" + this.msgList[this.msgList.length - 1].id
-				})
+				setTimeout(() => {
+					this.$nextTick(function() {
+						this.scrollToView = "msg" + this.msgList[this.msgList.length - 1].id
+					})
+				}, 10)
+
 			},
-			getSubmitHeight(height) {
+			/**
+			 * height 高度 flag 是否置于底部
+			 */
+			getSubmitHeight(height, flag=true) { //获取输入框高度
 				// console.log(height);
 				this.bottomHeight = height
-				this.toButtom()
+				if (flag)
+					this.toButtom()
 			},
 			sendmsg(msg, type) { //接收到发送方法
 				let data = {
@@ -174,13 +191,13 @@
 				this.calcTime()
 
 			},
-			back() {
+			back() { //返回
 				uni.navigateBack({
 					delta: 1,
 					animationDuration: 200
 				});
 			},
-			async getMsgData() {
+			async getMsgData() { //获得消息数据
 
 				this.msgList = [{
 						"id": 597,
@@ -310,9 +327,6 @@
 				//格式化时间
 				this.calcTime()
 				this.toButtom()
-
-
-
 			},
 			/**
 			 * 格式化处理日期信息
@@ -402,7 +416,7 @@
 				beginTime = beginTime.substring(beginTime.indexOf(":") + 1, beginTime.indexOf(":") + 3)
 				return 5 > (endTime - beginTime)
 			},
-			previewImg(msg) {
+			previewImg(msg) { //查看放大图片
 				let index = 0;
 				for (let i = 0; i < this.imgList.length; i++) {
 					if (this.imgList[i] == msg) {

@@ -16,7 +16,6 @@
 				<view class="bar-right">
 					<uni-icons color="#dee2e6" @click="gosearch" class="bar-search" size="60rpx" type="search" />
 					<uni-icons color="#dee2e6" class="bar-plus" size="60rpx" type="plus" />
-
 				</view>
 			</block>
 		</uni-nav-bar>
@@ -254,6 +253,15 @@
 </script>
 
 <style lang="scss">
+	
+	/deep/.uni-badge.uni-badge--error.uni-badge--small{
+		height: 40rpx !important;
+		width: 40rpx !important;
+		line-height: 40rpx;
+		font-size: 30rpx !important;
+	}
+	
+	
 	/deep/.uni-navbar__header-btns {
 		overflow: initial !important;
 	}
@@ -281,6 +289,7 @@
 
 	.msg-item {
 		// background-color: red;
+		height: 100rpx;
 		padding: $uni-spacing-row-sm $uni-spacing-col-sm;
 		margin-bottom: $uni-spacing-row-sm;
 
@@ -302,10 +311,10 @@
 				top: -74rpx;
 				left: -28rpx;
 				border-radius: $uni-border-radius-circle !important;
-				line-height: 14px;
+				line-height: 14rpx;
 				font-size: $uni-font-size-sm;
 				font-weight: 1;
-				padding: 2rpx 12rpx;
+				// padding: 2rpx 12rpx;
 				color: #fff;
 				//background-color: #8f939c;
 				///* border-width: 0.5px; */
@@ -323,7 +332,7 @@
 
 			.msg-item-msg {
 				//float: left;
-				width: 176px;
+				max-width: 176px;
 				height: 20px;
 				font-family: PingFangSC-Regular;
 				font-size: $uni-font-size-base;
