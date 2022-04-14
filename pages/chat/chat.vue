@@ -26,7 +26,8 @@
 
 		<!-- 消息列表 -->
 		<view class="box">
-			<scroll-view class="msg" scroll-with-animation="true" scroll-y="true" :scroll-into-view="scrollToView">
+			<scroll-view :scroll-top="scrollTop" class="msg" scroll-with-animation="true" scroll-y="true"
+				:scroll-into-view="scrollToView">
 				<view @touchstart="msgroomclick" @touchmove="msgroomtouchmove"
 					:style="'paddingBottom:'+bottomHeight+'px'" class="msg-room">
 					<view :key="index" v-for="(list,index) in msgList" class="msg-item" :id="'msg'+list.id">
@@ -64,6 +65,23 @@
 									</view>
 								</view>
 
+								<!-- 地图 -->
+								<view @click="showMap(list.content)" v-if="list.type===7" class="map-room">
+									<view class="map-name">
+										{{list.content.name}}
+									</view>
+									<view class="map-address">
+										{{list.content.address}}
+									</view>
+									<view class="map-pic">
+										<image class="appbutton app-map-pic" mode="aspectFit"
+											src="/static/image/map.png"></image>
+										<map class="h5button" :markers="covers(list.content)"
+											:longitude="list.content.longitude" :latitude="list.content.latitude">
+										</map>
+									</view>
+								</view>
+
 
 							</view>
 						</view>
@@ -92,6 +110,7 @@
 		data() {
 			return {
 				scrollToView: '',
+				scrollTop: 0,
 				pageY: '', //触摸y轴
 				customStyle: { //导航栏标题样式
 					backgroundColor: 'rgba(244, 244, 244, 0.96)',
@@ -114,19 +133,40 @@
 			this.getMsgData()
 		},
 		methods: {
-			msgroomclick(e) {
+			showMap(e) { //查看地图详情
+				uni.openLocation({
+					latitude: e.latitude,
+					longitude: e.longitude,
+					name: e.name,
+					address: e.address,
+					success: function() {
+						console.log('success');
+					}
+				});
+
+			},
+			covers(map) { //设置图标
+				let markers = [{
+					latitude: map.latitude,
+					longitude: map.longitude,
+					iconPath: '/static/icon/location_icon.png',
+					width: 20,
+					height: 20
+				}]
+				return (markers);
+			},
+			msgroomclick(e) { //设置初始触碰y轴
 				this.pageY = e.changedTouches[0].pageY
 				// console.log(e);
 			},
-			msgroomtouchmove(e) {
-				//TODO 滑动聊天页面取消下顶框
+			msgroomtouchmove(e) { //滑动聊天页面取消下顶框
 				if (global_.isSubmit) {
 					// console.log(this.pageY,e.changedTouches[0].pageY);
-
-					if (e.changedTouches[0].pageY - this.pageY > 150) {
+					if (e.changedTouches[0].pageY - this.pageY > 100 ||
+						e.changedTouches[0].pageY - this.pageY < -100) {
 						this.$refs.submit.returnToOriginal()
-						
 					}
+
 				}
 			},
 			playVoice(url) { //播放声音
@@ -154,16 +194,28 @@
 			toButtom() { // 到达数据底层
 				this.scrollToView = ''
 				setTimeout(() => {
-					this.$nextTick(function() {
+					this.$nextTick(() => {
 						this.scrollToView = "msg" + this.msgList[this.msgList.length - 1].id
+						
+						//定位到底部
+						// const query = uni.createSelectorQuery().in(this);
+						// query.select('.msg-room').boundingClientRect(data => {
+						// 	console.log(data.height);
+						// 	this.$nextTick(() => {
+						// 		this.scrollTop = data.height+100
+						// 	})
+						// }).exec()
+
+
 					})
 				}, 10)
+
 
 			},
 			/**
 			 * height 高度 flag 是否置于底部
 			 */
-			getSubmitHeight(height, flag=true) { //获取输入框高度
+			getSubmitHeight(height, flag = true) { //获取输入框高度
 				// console.log(height);
 				this.bottomHeight = height
 				if (flag)
@@ -321,6 +373,42 @@
 						"reback": 0,
 						"extra": null,
 						"userReceiveId": null
+					},
+					{
+						"id": 614,
+						"userId": 10002,
+						"content": {
+							"name": "东华门街道锡拉胡同北京利生体育商厦",
+							"latitude": 39.916404,
+							"longitude": 116.410244,
+							"address": "北京市东城区东华门街道锡拉胡同北京利生体育商厦"
+						},
+						"createdate": "2022-04-9 11:41:53",
+						"ip": "未知ip",
+						"type": 7,
+						"nickname": "张三",
+						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png",
+						"reback": 0,
+						"extra": null,
+						"userReceiveId": null
+					},
+					{
+						"id": 615,
+						"userId": 10000,
+						"content": {
+							"name": "东华门街道锡拉胡同北京利生体育商厦",
+							"latitude": 39.916404,
+							"longitude": 116.410244,
+							"address": "北京市东城区东华门街道锡拉胡同北京利生体育商厦"
+						},
+						"createdate": "2022-04-9 11:41:53",
+						"ip": "未知ip",
+						"type": 7,
+						"nickname": "micah",
+						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png",
+						"reback": 0,
+						"extra": null,
+						"userReceiveId": null
 					}
 				];
 
@@ -446,6 +534,18 @@
 		height: 100vh;
 	}
 
+	.h5button {
+		// #ifndef H5
+		display: none;
+		// #endif
+	}
+
+	.appbutton {
+		// #ifdef H5
+		display: none;
+		// #endif
+	}
+
 	//底部可能预存空间
 	.padbt {
 		// #ifndef H5
@@ -512,6 +612,45 @@
 							max-width: 400rpx;
 							border-radius: $uni-border-radius-base;
 						}
+
+						.map-room {
+							background-color: #fff;
+							width: 464rpx;
+							height: 284rpx;
+							overflow: hidden;
+
+							.map-name {
+								font-size: $uni-font-size-lg;
+								color: $uni-text-color;
+								line-height: 54rpx;
+								padding: 18rpx 24rpx 0 24rpx;
+								overflow: hidden;
+								text-overflow: ellipsis;
+								white-space: nowrap
+							}
+
+							.map-address {
+								font-size: $uni-font-size-sm;
+								color: $uni-text-color-disable;
+								// line-height: 54rpx;
+								padding: 0 24rpx;
+								overflow: hidden;
+								text-overflow: ellipsis;
+								white-space: nowrap
+							}
+
+							.map-pic {
+								width: 464rpx;
+								height: 180rpx;
+								margin-top: 8rpx;
+								overflow: hidden;
+
+								.app-map-pic {
+									width: 464rpx;
+									height: 180rpx;
+								}
+							}
+						}
 					}
 				}
 
@@ -519,6 +658,11 @@
 
 			.msg-left {
 				flex-direction: row;
+
+				.map-room {
+					margin-left: 16rpx;
+					border-radius: 0 20rpx 20rpx 20rpx;
+				}
 
 				.voice-room {
 					.msg-voice {
@@ -546,6 +690,11 @@
 
 			.msg-right {
 				flex-direction: row-reverse;
+
+				.map-room {
+					margin-right: 16rpx;
+					border-radius: 20rpx 0rpx 20rpx 20rpx;
+				}
 
 				.sound-icon {
 					float: right;

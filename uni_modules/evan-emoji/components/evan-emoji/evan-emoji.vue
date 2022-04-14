@@ -69,7 +69,7 @@ export default {
     // 表情容器高度
     height: {
       type: String,
-      default: '340rpx'
+      default: '330rpx'
     },
     // 使用删除图标
     useDelIcon: {
@@ -197,22 +197,22 @@ export default {
   }
 
   &-del-icon {
-    width: 50rpx;
-    height: 44rpx;
+    width: 60rpx;
+    height: 50rpx;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 90rpx;
+    right: 110rpx;
     overflow: initial;
   }
 
   &-submit-icon {
-    width: 50rpx;
-    height: 44rpx;
+    width: 60rpx;
+    height: 50rpx;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 20rpx;
+    right: 30rpx;
     overflow: initial;
 
     &::before {
@@ -220,7 +220,7 @@ export default {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      left: -90rpx;
+      left: -100rpx;
       width: 2rpx;
       height: 28rpx;
       background-color: #ccc;
@@ -240,7 +240,7 @@ export default {
     display: inline-block;
     box-sizing: border-box;
     padding: 6rpx 14rpx;
-    font-size: $uni-font-size-base;
+    font-size: $uni-font-size-lg;
 
     &.actived {
       background-color: var(--bg-color);

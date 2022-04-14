@@ -33,14 +33,18 @@
 		name: "submit-more",
 		methods: {
 			switchLocation() { //选择位置
+			let thiz=this
 				uni.chooseLocation({
 					success: function(res) {
 						console.log('位置名称：' + res.name);
 						console.log('详细地址：' + res.address);
 						console.log('纬度：' + res.latitude);
 						console.log('经度：' + res.longitude);
+						thiz.$emit("submit",res,7,false)
+						console.log(res);
 					}
 				});
+				
 
 			},
 			submitPic(type) { //提交图片

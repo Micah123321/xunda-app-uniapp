@@ -42,7 +42,7 @@
 			</view>
 			<!-- 更多 -->
 			<view v-show="ismore">
-				<submit-more @getPic="getPic"></submit-more>
+				<submit-more @submit="submit" @getPic="getPic"></submit-more>
 			</view>
 
 
@@ -163,11 +163,14 @@
 				if (this.pageY - e.changedTouches[0].pageY > 100) {
 					this.isrecording = false
 					clearInterval(this.timer)
+					this.iscancle = true
+					recorderManager.stop();
 				}
 			},
 			touchstart(e) { // 触摸开始
 				// console.log("开始");
 				this.isrecording = true
+				this.iscancle = false
 				// console.log(e.changedTouches[0].pageY);
 				this.pageY = e.changedTouches[0].pageY
 				this.startTimeLoad()
@@ -175,8 +178,6 @@
 
 			},
 			touchend() { //触摸结束
-				if (this.isrecording == false)
-					return
 				this.isrecording = false
 				// console.log("结束");
 				if (!this.endTimeLoad())
@@ -189,6 +190,9 @@
 						time: this.vtime,
 						voice: res.tempFilePath
 					}
+					// console.log(this.iscancle);
+					if (this.iscancle == true)
+						return
 					this.submit(data, 6, false);
 				});
 			},
