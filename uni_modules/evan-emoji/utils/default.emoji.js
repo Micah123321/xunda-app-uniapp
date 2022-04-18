@@ -317,7 +317,7 @@ export const XIAOLIAN_GIF_EMOJI = {
 
 // 笑脸普通表情
 export const XIAOLIAN_PNG_EMOJI = {
-	type: 'html',
+	type: 'image',
 	alias: 'ptbq',
 	name: '笑脸',
 	list: [{
@@ -1093,7 +1093,7 @@ export const XIAOLIAN_PNG_EMOJI = {
 
 // 手势箭头表情
 export const SHOUSHI_PNG_EMOJI = {
-	type: 'html',
+	type: 'image',
 	alias: 'ssjt',
 	name: '手势箭头',
 	list: [{
@@ -9635,7 +9635,7 @@ const DefaultEmoji = [
 	// HUACAO_PNG_EMOJI, SHIWU_PNG_EMOJI,
 	// YANWENZI_PNG_EMOJI,YUNDONG_PNG_EMOJI
 	// 默认gif图数据
-	// ,XIAOLIAN_GIF_EMOJI
+	XIAOLIAN_GIF_EMOJI
 ]
 
 export default DefaultEmoji

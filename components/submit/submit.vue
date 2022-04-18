@@ -26,14 +26,18 @@
 					</template>
 				</zzlb-recorder>
 				<!-- 输入框 -->
-				<textarea ref="textarea" @blur="blur" @focus="focus" v-model="msg" @input="inputs" v-show="!isrecord" auto-height="true"
-					class="submit-content"></textarea>
+				<textarea ref="textarea" @tap="focus" @blur="blur" @focus="focus" v-model="msg" v-show="!isrecord"
+					auto-height="true" class="submit-content"></textarea>
 				<!-- emoji显示 -->
 				<uni-icons @click="showEmoji" custom-prefix="iconfont" color="rgba(39,40,50,1)" class="btn submit-bqb"
 					size="60rpx" type="icon-biaoqing" />
 				<!-- 更多图标 -->
-				<uni-icons @click="showMore" color="rgba(39,40,50,1)" class="btn submit-more" size="60rpx"
-					type="plus" />
+				<uni-icons v-if="isempty||isrecord" @click="showMore" color="rgba(39,40,50,1)" class="btn submit-more"
+					size="60rpx" type="plus" />
+
+				<button @click="submit(msg,1,true)" v-if="!isempty&&!isrecord" size="mini" class="btn btn-submit"
+					type="primary">发送</button>
+
 			</view>
 			<!-- 表情列表 -->
 			<view v-show="isemoji">
@@ -44,7 +48,6 @@
 			<view v-show="ismore">
 				<submit-more @submit="submit" @getPic="getPic"></submit-more>
 			</view>
-
 
 		</view>
 
@@ -70,13 +73,27 @@
 <script>
 	const recorderManager = uni.getRecorderManager();
 	import emoji from '../emoji/emoji.vue'
-		import global_ from '@/common/js/Global.js'//引用全局模块
+	import global_ from '@/common/js/Global.js' //引用全局模块
 	import more from '@/components/submit-more/submit-more.vue'
 	export default {
 		name: "submit",
 		components: {
 			emoji,
 			more
+		},
+		watch: {
+			msg(msg) {
+				if (msg.length > 0) {
+					// console.log(msg);
+					this.isempty = false
+					if (msg.length > 1 && msg.indexOf('\n') != -1) {
+						this.submit(this.msg, 1, true)
+					}
+
+				} else {
+					this.isempty = true
+				}
+			}
 		},
 		data() {
 			return {
@@ -85,6 +102,7 @@
 				isemoji: false, //是否表情包
 				ismore: false, //是否更多
 				iscancle: false,
+				isempty: true,
 				msg: "", //发送信息
 				timer: '', //计时
 				vtime: 0, //录音秒
@@ -204,21 +222,23 @@
 				this.submit(picurl, 2, false)
 			},
 			focus() { //获得焦点
+
 				this.isemoji = false
 				this.ismore = false
-				global_.isSubmit=true
+				global_.isSubmit = true
 				this.getSubmitHeight()
+				// uni.hideKeyboard()
 			},
-			blur(){//失去焦点
-				global_.isSubmit=false
+			blur() { //失去焦点
+				global_.isSubmit = false
 			},
-			returnToOriginal(){//回归原始样式
-				global_.isSubmit=false
+			returnToOriginal() { //回归原始样式
+				global_.isSubmit = false
 				this.isemoji = false
 				this.ismore = false
 				this.getSubmitHeight(false)
 				// console.log(this.$refs.textarea);
-				uni.hideKeyboard()//隐藏键盘
+				uni.hideKeyboard() //隐藏键盘
 				// .blur()/
 			},
 			fnOnEmojiSelect(e) { //选择表情按钮事件
@@ -227,9 +247,14 @@
 			fnOnEmojiDelete() { //删除按钮触发事件
 				this.msg = this.msg.slice(0, this.msg.length - 1)
 			},
-			fnOnSubmit() { //点击了发送按钮
-				if (this.msg.length > 1) {
-					this.submit(this.msg, 1, true)
+			fnOnSubmit(type, msg) { //点击了发送按钮
+				if (type == 1) {
+					if (this.msg.length > 1) {
+						this.submit(this.msg, 1, true)
+					}
+				}
+				if (type == 2) {
+					this.submit(msg, 2, false)
 				}
 			},
 			/**
@@ -239,14 +264,15 @@
 				this.isrecord = !this.isrecord
 				this.isemoji = false
 				this.ismore = false
-				global_.isSubmit=false
+
+				global_.isSubmit = false
 				this.getSubmitHeight()
 
 			},
 			showMore() {
 				this.ismore = !this.ismore
 				this.isemoji = false
-				global_.isSubmit=this.isemoji||this.ismore
+				global_.isSubmit = this.isemoji || this.ismore
 				this.getSubmitHeight()
 
 			},
@@ -254,7 +280,7 @@
 				this.isemoji = !this.isemoji
 				this.ismore = false
 				this.isrecord = false
-				global_.isSubmit=this.isemoji||this.ismore
+				global_.isSubmit = this.isemoji || this.ismore
 				this.getSubmitHeight()
 
 			},
@@ -262,7 +288,7 @@
 				this.$nextTick(() => {
 					const query = uni.createSelectorQuery().in(this);
 					query.select('.submit').boundingClientRect(data => {
-						this.$emit("getSubmitHeight", data.height,flag)
+						this.$emit("getSubmitHeight", data.height, flag)
 					}).exec()
 				})
 
@@ -270,9 +296,15 @@
 			inputs(e) { //监听输入框
 				// console.log();
 				let msg = e.detail.value
-				if (msg.length > 1 && msg.indexOf('\n') != -1) {
-					// console.log(msg);
-					this.submit(this.msg, 1, true)
+				if (msg.length > 0) {
+					console.log(msg);
+					this.isempty = false
+					if (msg.length > 1 && msg.indexOf('\n') != -1) {
+						this.submit(this.msg, 1, true)
+					}
+
+				} else {
+					this.isempty = true
 				}
 			},
 			/** 
@@ -294,6 +326,14 @@
 </script>
 
 <style lang="scss">
+	.btn-submit {
+		border-radius: $uni-border-radius-lg;
+		background: $uni-color-primary;
+		width: 150rpx;
+		height: 60rpx;
+		font-size: $uni-font-size-sm;
+	}
+
 	.app-voice-mock {
 		height: 100%;
 		width: 100%;
@@ -396,7 +436,13 @@
 				max-height: 160rpx;
 				margin: 0 10rpx;
 				line-height: 50rpx;
-				// width: 100%;
+				// margin-bottom: 10rpx;
+			}
+
+			.btn {
+				flex: auto;
+				margin: 0rpx 10rpx 10rpx 10rpx;
+				line-height: 60rpx;
 			}
 
 			.apprecord {
@@ -413,11 +459,7 @@
 
 			}
 
-			.btn {
-				flex: auto;
-				margin: 0rpx 10rpx 10rpx 10rpx;
-				line-height: 60rpx;
-			}
+
 
 			.submit-bqb {
 				transform: scale(0.8, 0.8);

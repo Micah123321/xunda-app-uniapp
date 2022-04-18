@@ -20,7 +20,7 @@ const getImgHtml = function(classNames, src, alt, options) {
 	let styleStr = ''
 	for (let style in styles) {
 		styleStr += `${style}:${styles[style]};`
-	} 
+	}
 	let className = classNames.join(' ').trim();
 	return `<img style="${styleStr}" class="${className}" src="${src}" alt="[${alt}]"/>`;
 };
@@ -139,8 +139,8 @@ const Convert = {
 			})
 
 		})
-
-		return msg;
+		return item.url;
+		// return msg; 原本代码
 
 	}
 

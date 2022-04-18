@@ -26,10 +26,11 @@
 
 		<!-- 消息列表 -->
 		<view class="box">
-			<scroll-view :scroll-top="scrollTop" class="msg" scroll-with-animation="true" scroll-y="true"
-				:scroll-into-view="scrollToView">
+			<scroll-view @scrolltoupper="toNextPage" :scroll-top="scrollTop" class="msg"
+				:scroll-with-animation="swanimation" scroll-y="true" :scroll-into-view="scrollToView">
 				<view @touchstart="msgroomclick" @touchmove="msgroomtouchmove"
 					:style="'paddingBottom:'+bottomHeight+'px'" class="msg-room">
+					<uni-load-more :status="loading"></uni-load-more>
 					<view :key="index" v-for="(list,index) in msgList" class="msg-item" :id="'msg'+list.id">
 						<view v-if="!list.hidetime" class="msg-item-time">
 							{{ formatDate1(list.createdate, 'HH:mm') }}
@@ -112,6 +113,7 @@
 				scrollToView: '',
 				scrollTop: 0,
 				pageY: '', //触摸y轴
+				swanimation: true, //滑动动画
 				customStyle: { //导航栏标题样式
 					backgroundColor: 'rgba(244, 244, 244, 0.96)',
 					color: '#272832',
@@ -126,6 +128,15 @@
 					"http://119.91.141.30/oos/2021-12-19/a1fc2c6f-fe54-4ba7-87d3-1e1ab4f61164"
 				],
 				msgList: [],
+				totalMsgList: [],
+				/**
+				 * 加载状态
+				 * more	加载前
+				 * loading	加载中
+				 * no-more	没有更多数据
+				 */
+				loading: 'more',
+				pageNum: 1, //页码
 				bottomHeight: 55
 			}
 		},
@@ -192,25 +203,22 @@
 				return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;
 			},
 			toButtom() { // 到达数据底层
-				this.scrollToView = ''
-				setTimeout(() => {
-					this.$nextTick(() => {
-						this.scrollToView = "msg" + this.msgList[this.msgList.length - 1].id
-						
-						//定位到底部
-						// const query = uni.createSelectorQuery().in(this);
-						// query.select('.msg-room').boundingClientRect(data => {
-						// 	console.log(data.height);
-						// 	this.$nextTick(() => {
-						// 		this.scrollTop = data.height+100
-						// 	})
-						// }).exec()
-
-
-					})
-				}, 10)
-
-
+				if (this.msgList.length > 0) {
+					this.scrollToView = ''
+					setTimeout(() => {
+						this.$nextTick(() => {
+							this.scrollToView = "msg" + this.msgList[this.msgList.length - 1].id
+							//定位到底部
+							// const query = uni.createSelectorQuery().in(this);
+							// query.select('.msg-room').boundingClientRect(data => {
+							// 	console.log(data.height);
+							// 	this.$nextTick(() => {
+							// 		this.scrollTop = data.height+100
+							// 	})
+							// }).exec()
+						})
+					}, 10)
+				}
 			},
 			/**
 			 * height 高度 flag 是否置于底部
@@ -249,9 +257,63 @@
 					animationDuration: 200
 				});
 			},
+			sleep(numberMillis) { //休眠
+				var now = new Date();
+				var exitTime = now.getTime() + numberMillis;
+				while (true) {
+					now = new Date();
+					if (now.getTime() > exitTime)
+						return true;
+				}
+			},
+			async toNextPage() { //前往下一页
+				if (this.loading != 'no-more') //判断是否还要加载动画
+					this.loading = 'loading'
+				//初始化分页数据
+				let pageSize = 6;
+				let totalCount = this.totalMsgList.length
+				let totalPage = Math.ceil(totalCount / pageSize);
+				let index = (this.pageNum - 1) * pageSize
+
+				setTimeout(() => {
+					if (this.pageNum <= totalPage) { //是否超过最大页码
+						this.pageNum++
+					} else {
+						this.loading = 'no-more'
+						return
+					}
+
+					var data = this.totalMsgList
+
+					if (this.msgList.length > 0) { //原地定位
+						this.scrollToView = ''
+						var id = "msg" + this.msgList[0].id
+						this.swanimation = false
+						setTimeout(() => {
+							this.scrollToView = id
+							setTimeout(() => {
+								this.swanimation = true
+							}, 10)
+						}, 10)
+					} else {//初次加载则置底
+						var flag=true
+					}
+
+					data.slice(index, index + pageSize).forEach(e => { //翻页添加数据
+						this.msgList.push(e)
+					})
+					if (flag) {//置底
+						this.toButtom()
+					}
+					this.calcTime()
+
+					this.loading = 'more'
+				}, 1000)
+
+			},
 			async getMsgData() { //获得消息数据
 
-				this.msgList = [{
+				this.totalMsgList = [{
 						"id": 597,
 						"userId": 10001,
 						"content": "asdasdawdsadawdsadaw",
@@ -411,10 +473,9 @@
 						"userReceiveId": null
 					}
 				];
+				this.totalMsgList = this.totalMsgList.reverse()
+				await this.toNextPage()
 
-				//格式化时间
-				this.calcTime()
-				this.toButtom()
 			},
 			/**
 			 * 格式化处理日期信息
@@ -484,6 +545,7 @@
 				//格式化图片列表
 				if (this.msgList) {
 					for (let i = 0; i < this.msgList.length; i++) {
+
 						if (i > 1) {
 							if (this.getTime(this.msgList[i - 1].createdate, this.msgList[i].createdate)) {
 								//如果相差不超过五分钟则省略时间显示
@@ -492,6 +554,9 @@
 						}
 					}
 				}
+				this.msgList.sort(function(a, b) {//根据id排序
+					return a.id > b.id ? 1 : -1
+				})
 			},
 			/**
 			 * 判断两个时间是否相差[五(变量)]分钟

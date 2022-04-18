@@ -103,6 +103,7 @@
             	"navigationBarTextStyle": "black", //状态栏字体颜色
             	"app-plus": {
             		"titleNView": false //去掉当前页的顶部导航栏
+					// "softinputmode": "adjustPan"
             	},
             	"navigationStyle": "custom"
             }

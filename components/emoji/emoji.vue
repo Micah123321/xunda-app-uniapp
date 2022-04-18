@@ -28,7 +28,8 @@
 							'vertical-align': 'text-bottom'
 						} // 其他样式(必须是原生的style写法，不支持驼峰式)
 					});
-					console.log(html);
+					// console.log(e.data.text,html);
+					this.$emit("on-submit",2,html)
 				}
 			},
 			fnOnEmojiDelete() {//删除按钮触发事件
@@ -37,7 +38,7 @@
 			},
 			fnOnSubmit(){//点击了发送按钮
 				// console.log("发送");
-				this.$emit("on-submit")
+				this.$emit("on-submit",1,null)
 			}
 		}
 	}
