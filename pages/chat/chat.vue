@@ -48,8 +48,25 @@
 										mode="widthFix" lazy-load></image>
 								</view>
 								<!-- 文件 -->
+								<view v-if="list.type===3">
+									<view class="msg-file">
+										<view class="msg-file-name">
+											{{list.content.fileName}}
+										</view>
+										<view class="msg-file-pic">
+											<!-- {{list.content.type}} -->
+											<image class="msg-file-pic" mode="widthFix" :src="list.content.data">
+											</image>
+										</view>
+										<view class="msg-file-size">
+											{{list.content.size}}
+										</view>
+									</view>
+								</view>
 								<!-- 视频 -->
+
 								<!-- 转发 -->
+
 								<!-- 录音 -->
 								<view class="voice-room" v-if="list.type===6">
 
@@ -295,14 +312,14 @@
 								this.swanimation = true
 							}, 10)
 						}, 10)
-					} else {//初次加载则置底
-						var flag=true
+					} else { //初次加载则置底
+						var flag = true
 					}
 
 					data.slice(index, index + pageSize).forEach(e => { //翻页添加数据
 						this.msgList.push(e)
 					})
-					if (flag) {//置底
+					if (flag) { //置底
 						this.toButtom()
 					}
 					this.calcTime()
@@ -554,7 +571,7 @@
 						}
 					}
 				}
-				this.msgList.sort(function(a, b) {//根据id排序
+				this.msgList.sort(function(a, b) { //根据id排序
 					return a.id > b.id ? 1 : -1
 				})
 			},
@@ -673,6 +690,30 @@
 							padding: 18rpx 24rpx;
 						}
 
+						.msg-file {
+							word-wrap: break-word;
+							line-height: 54rpx;
+							padding: 18rpx 24rpx;
+							background-color: #fff;
+
+							.msg-file-name {
+								float: left;
+								font-size: $uni-font-size-lg;
+								color: $uni-text-color;
+							}
+
+							.msg-file-size {
+								font-size: $uni-font-size-base;
+								color: $uni-text-color-grey;
+							}
+
+							.msg-file-pic {
+								float: right;
+								max-width: 60rpx;
+								border-radius: $uni-border-radius-base;
+							}
+						}
+
 						.msg-pic {
 							max-width: 400rpx;
 							border-radius: $uni-border-radius-base;
@@ -748,6 +789,11 @@
 					border-radius: 0 20rpx 20rpx 20rpx;
 				}
 
+				.msg-file {
+					margin-left: 20rpx;
+					border-radius: 0 20rpx 20rpx 20rpx;
+				}
+
 				.msg-pic {
 					margin-left: 20rpx;
 				}
@@ -772,6 +818,11 @@
 					background-color: $uni-color-primary;
 					border-radius: 20rpx 0rpx 20rpx 20rpx;
 					color: white !important;
+				}
+
+				.msg-file {
+					margin-right: 20rpx;
+					border-radius: 20rpx 0rpx 20rpx 20rpx;
 				}
 
 				.msg-pic {
