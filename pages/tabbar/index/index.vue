@@ -15,7 +15,7 @@
 			<block slot="right">
 				<view class="bar-right">
 					<uni-icons color="#dee2e6" @click="gosearch" class="bar-search" size="60rpx" type="search" />
-					<uni-icons color="#dee2e6" class="bar-plus" size="60rpx" type="plus" />
+					<uni-icons color="#dee2e6" @click="goBuildGroup" class="bar-plus" size="60rpx" type="plus" />
 				</view>
 			</block>
 		</uni-nav-bar>
@@ -147,6 +147,11 @@
 			}
 		},
 		methods: {
+			goBuildGroup(){
+				uni.navigateTo({
+					url: '../../buildgroup/buildgroup',
+				});
+			},
 			goHome() {
 				uni.navigateTo({
 					url: '../../userhome/userhome',
