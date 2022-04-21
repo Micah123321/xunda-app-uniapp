@@ -321,8 +321,14 @@
 		overflow: hidden;
 
 		.exit {
-			padding: $uni-spacing-row-base;
+			padding: 0 $uni-spacing-row-base;
 			margin-top: $uni-spacing-row-base;
+			position: fixed;
+			bottom: 0;
+			width:90%;
+			height: 100rpx;
+			padding-top: 10rpx;
+			padding-bottom: env(safe-area-inset-bottom);
 		}
 
 		.info-list {

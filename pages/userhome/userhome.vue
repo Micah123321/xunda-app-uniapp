@@ -278,8 +278,12 @@
 		.footer {
 			// margin-top: 400rpx;
 
-			position: absolute;
-			bottom: 150rpx;
+			position: fixed;
+			bottom: 0;
+			// width: 100%;
+			height: 100rpx;
+			padding-top: 10rpx;
+			padding-bottom: env(safe-area-inset-bottom);
 
 			.add {
 				.btn-add {
