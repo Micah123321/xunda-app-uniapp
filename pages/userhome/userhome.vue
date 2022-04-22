@@ -97,21 +97,17 @@
 		},
 		methods: {
 			tologin() {
-				uni.navigateTo({
-					url: '../login/login'
-				});
+				uni.navigateTo({ url: '../login/login' })
 			},
 			touserinfo() {
-				uni.navigateTo({
-					url: '../userinfo/userinfo'
-				});
+				uni.navigateTo({ url: '../userinfo/userinfo' })
 			},
 			back() {
 				uni.navigateBack({
 					delta: 1,
-					animationType:"slide-out-left",
+					animationType: 'slide-out-left',
 					animationDuration: 200
-				});
+				})
 			},
 			showAddArea() {
 				this.isAdd = !this.isAdd
@@ -134,14 +130,14 @@
 				})
 				if (this.isAdd) {
 					animation.bottom(0).step()
-					animation3.right(256 + "rpx").width(200 + "rpx").height(200 + "rpx").opacity(0).step()
-					animation2.backgroundColor("rgba(0, 120, 212, 0.8)").step()
-					animation1.top(-256 + "rpx").width(200 + "rpx").height(200 + "rpx").step()
+					animation3.right(256 + 'rpx').width(200 + 'rpx').height(200 + 'rpx').opacity(0).step()
+					animation2.backgroundColor('rgba(0, 120, 212, 0.8)').step()
+					animation1.top(-256 + 'rpx').width(200 + 'rpx').height(200 + 'rpx').step()
 				} else {
-					animation.bottom(-90 + "%").step()
-					animation3.width(24.6).height(20.8).top(360 + "rpx").right(156 + "rpx").opacity(1).step()
-					animation2.backgroundColor("rgba(255, 255, 255, .7)").step()
-					animation1.top(0 + "rpx").bottom(0).width(360 + "rpx").height(360 + "rpx").step()
+					animation.bottom(-90 + '%').step()
+					animation3.width(24.6).height(20.8).top(360 + 'rpx').right(156 + 'rpx').opacity(1).step()
+					animation2.backgroundColor('rgba(255, 255, 255, .7)').step()
+					animation1.top(0 + 'rpx').bottom(0).width(360 + 'rpx').height(360 + 'rpx').step()
 				}
 
 				this.animationData = animation.export()

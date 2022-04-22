@@ -83,46 +83,55 @@
 				},
 				"navigationStyle": "custom"
 			}
-		}
-	    ,{
-            "path" : "pages/friend-apply-info/friend-apply-info",
-            "style": {
-            	"navigationBarBackgroundColor": "#FFFFFF",
-            	"navigationBarTextStyle": "black", //状态栏字体颜色
-            	"app-plus": {
-            		"titleNView": false //去掉当前页的顶部导航栏
-            	},
-            	"navigationStyle": "custom"
-            }
-            
-        }
-        ,{
-            "path" : "pages/chat/chat",
-            "style": {
-            	"navigationBarBackgroundColor": "#FFFFFF",
-            	"navigationBarTextStyle": "black", //状态栏字体颜色
-            	"app-plus": {
-            		"titleNView": false //去掉当前页的顶部导航栏
+		}, {
+			"path": "pages/friend-apply-info/friend-apply-info",
+			"style": {
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black", //状态栏字体颜色
+				"app-plus": {
+					"titleNView": false //去掉当前页的顶部导航栏
+				},
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/chat/chat",
+			"style": {
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black", //状态栏字体颜色
+				"app-plus": {
+					"titleNView": false //去掉当前页的顶部导航栏
 					// "softinputmode": "adjustPan"
-            	},
-            	"navigationStyle": "custom"
-            }
-            
-        }
-        ,{
-            "path" : "pages/buildgroup/buildgroup",
-            "style": {
-            	"navigationBarBackgroundColor": "#FFFFFF",
-            	"navigationBarTextStyle": "black", //状态栏字体颜色
-            	"app-plus": {
-            		"titleNView": false //去掉当前页的顶部导航栏
-            		// "softinputmode": "adjustPan"
-            	},
-            	"navigationStyle": "custom"
-            }
-            
-        }
-    ],
+				},
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/buildgroup/buildgroup",
+			"style": {
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black", //状态栏字体颜色
+				"app-plus": {
+					"titleNView": false //去掉当前页的顶部导航栏
+					// "softinputmode": "adjustPan"
+				},
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/grouphome/grouphome",
+			"style": {
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black", //状态栏字体颜色
+				"app-plus": {
+					"titleNView": false //去掉当前页的顶部导航栏
+					// "softinputmode": "adjustPan"
+				},
+				"navigationStyle": "custom"
+			}
+
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "xunda",
@@ -161,14 +170,12 @@
 			}
 		]
 	},
-	"condition" : { //模式配置，仅开发期间生效
+	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)
-		"list": [
-			{
-				"name": "", //模式名称
-				"path": "", //启动页面，必选
-				"query": "" //启动参数，在页面的onLoad函数里面得到
-			}
-		]
+		"list": [{
+			"name": "", //模式名称
+			"path": "", //启动页面，必选
+			"query": "" //启动参数，在页面的onLoad函数里面得到
+		}]
 	}
 }

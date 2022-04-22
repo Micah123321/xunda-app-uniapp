@@ -19,7 +19,7 @@
 					<image @tap="upload" class="pan" src="../../static/icon/pan_icon.png" mode="aspectFit"></image>
 				</view>
 				<view class="title-name">
-					<input v-model="groupname"  placeholder="群名称" type="text" class="title-name-input" />
+					<input v-model="groupname" placeholder="群名称" type="text" class="title-name-input" />
 				</view>
 				<view class="h2">
 					用户
@@ -36,11 +36,11 @@
 			<!-- 底部按钮 -->
 			<view class="footer">
 				<view class="add">
-					<button :disabled="!((count>0)&&(groupname.length>0)&&(grouppic.length>0))" @click="showAddArea" class="btn-add" type="primary">创建
+					<button :disabled="!((count>0)&&(groupname.length>0)&&(grouppic.length>0))" @click="bulidGroup"
+						class="btn-add" type="primary">创建
 						<span v-if="count>0">
 							({{count}})
 						</span>
-
 					</button>
 				</view>
 			</view>
@@ -63,13 +63,18 @@
 				tempFilePath: "/static/icon/group_icon_3.png",
 				cropFilePath: "/static/icon/group_icon_3.png",
 				count: 0,
-				groupname:'',
-				grouppic:''
+				groupname: '',
+				grouppic: '',
+				slist:[]
 			}
 		},
 		methods: {
-			getCount(e) {
+			bulidGroup(){
+				console.log(this.slist);
+			},
+			getCount(e,list) {
 				this.count = e
+				this.slist=list
 			},
 			upload() {
 				uni.chooseImage({
@@ -78,7 +83,7 @@
 					sourceType: ["album", "camera"], //从相册选择
 					success: (res) => {
 						this.tempFilePath = res.tempFilePaths.shift();
-						this.grouppic=res.tempFilePaths.shift();
+						this.grouppic = res.tempFilePaths.shift();
 					},
 				});
 			},
@@ -120,7 +125,6 @@
 </script>
 
 <style lang="scss">
-
 	.footer-over {
 		width: 100%;
 		height: 100rpx;
@@ -147,7 +151,8 @@
 				border-radius: $uni-border-radius-sm;
 				background: $uni-color-primary;
 			}
-			.btn-add[disabled]{
+
+			.btn-add[disabled] {
 				background: #9db5d4 !important;
 
 			}

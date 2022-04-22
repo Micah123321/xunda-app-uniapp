@@ -1,65 +1,72 @@
 <template>
 	<view class="body">
-
 		<!-- 顶部 -->
-		<uni-nav-bar backgroundColor="rgba(244, 244, 244, 0.96)" leftWidth="100%" statusBar class="bar" fixed>
+		<uni-nav-bar background-color="rgba(244, 244, 244, 0.96)" left-width="100%" status-bar class="bar" fixed>
 			<block slot="left">
 				<view class="bar-left">
 					<view class="back">
-						<uni-icons @click="back" class="bar-back" size="60rpx" type="back" />
-
+						<uni-icons class="bar-back" size="60rpx" type="back" @click="back" />
 					</view>
 					<view class="badge">
-						<uni-badge class="uni-badge-left-margin" text="2" type="info" :customStyle="customStyle" />
+						<uni-badge class="uni-badge-left-margin" text="2" type="info" :custom-style="customStyle" />
 					</view>
-					<view class="name">东东</view>
+					<view v-if="isGroup" class="name-box">
+						<view class="box-name">
+							xx一群(100)
+						</view>
+						<view class="online">
+							50人在线
+						</view>
+					</view>
 
+					<view v-if="!isGroup" class="name">
+						王者好友1号
+					</view>
 				</view>
 			</block>
 			<block slot="right">
 				<view class="bar-more">
-					<uni-icons class="bar-phone" size="60rpx" type="phone"></uni-icons>
-					<uni-icons class="bar-more" size="60rpx" type="list"></uni-icons>
+					<uni-icons v-if="!isGroup" class="bar-phone" size="60rpx" type="phone" />
+					<uni-icons class="bar-more" size="60rpx" type="list" />
 				</view>
 			</block>
 		</uni-nav-bar>
 
 		<!-- 消息列表 -->
 		<view class="box">
-			<scroll-view @scrolltoupper="toNextPage" :scroll-top="scrollTop" class="msg"
-				:scroll-with-animation="swanimation" scroll-y="true" :scroll-into-view="scrollToView">
-				<view @touchstart="msgroomclick" @touchmove="msgroomtouchmove"
-					:style="'paddingBottom:'+bottomHeight+'px'" class="msg-room">
-					<uni-load-more :status="loading"></uni-load-more>
-					<view :key="index" v-for="(list,index) in msgList" class="msg-item" :id="'msg'+list.id">
+			<scroll-view :scroll-top="scrollTop" class="msg" :scroll-with-animation="swanimation" scroll-y="true"
+				:scroll-into-view="scrollToView" @scrolltoupper="toNextPage">
+				<view :style="'paddingBottom:'+bottomHeight+'px'" class="msg-room" @touchstart="msgroomclick"
+					@touchmove="msgroomtouchmove">
+					<uni-load-more :status="loading" />
+					<view v-for="(list,index) in msgList" :id="'msg'+list.id" :key="index" class="msg-item">
 						<view v-if="!list.hidetime" class="msg-item-time">
 							{{ formatDate1(list.createdate, 'HH:mm') }}
 						</view>
 						<view class="msg-bottom" :class="list.userId==10000?'msg-right':'msg-left' ">
 							<view class="msg-item-img">
-								<image class="user_pic" :src="list.userPic"></image>
+								<image class="user_pic" :src="list.userPic" />
 							</view>
 							<view class="msg-item-msg">
 								<!-- 普通文本信息 -->
-								<view v-if="list.type===1" v-text="list.content" class="msg-text"></view>
+								<view v-if="list.type===1" class="msg-text" v-text="list.content" />
 								<!-- 图片信息 -->
 								<view v-if="list.type===2">
-									<image @click="previewImg(list.content)" class="msg-pic" :src="list.content"
-										mode="widthFix" lazy-load></image>
+									<image class="msg-pic" :src="list.content" mode="widthFix" lazy-load
+										@click="previewImg(list.content)" />
 								</view>
 								<!-- 文件 -->
 								<view v-if="list.type===3">
 									<view class="msg-file">
 										<view class="msg-file-name">
-											{{list.content.fileName}}
+											{{ list.content.fileName }}
 										</view>
 										<view class="msg-file-pic">
 											<!-- {{list.content.type}} -->
-											<image class="msg-file-pic" mode="widthFix" :src="list.content.data">
-											</image>
+											<image class="msg-file-pic" mode="widthFix" :src="list.content.data" />
 										</view>
 										<view class="msg-file-size">
-											{{list.content.size}}
+											{{ list.content.size }}
 										</view>
 									</view>
 								</view>
@@ -68,63 +75,56 @@
 								<!-- 转发 -->
 
 								<!-- 录音 -->
-								<view class="voice-room" v-if="list.type===6">
-
-									<view @click="playVoice(list.content.voice)"
-										:style="{width:list.content.time*2+40+'px'}" class="msg-text msg-voice">
+								<view v-if="list.type===6" class="voice-room">
+									<view :style="{width:list.content.time*2+40+'px'}" class="msg-text msg-voice"
+										@click="playVoice(list.content.voice)">
 										<span v-show="list.userId==10000">
-											{{list.content.time+"''"}}
+											{{ list.content.time+"''" }}
 										</span>
 										<uni-icons class="sound-icon" :color="list.userId==10000?'white':'black' "
-											type="sound-filled" size="36rpx"></uni-icons>
+											type="sound-filled" size="36rpx" />
 										<span v-show="list.userId!=10000">
-											{{list.content.time+"''"}}
+											{{ list.content.time+"''" }}
 										</span>
 									</view>
 								</view>
 
 								<!-- 地图 -->
-								<view @click="showMap(list.content)" v-if="list.type===7" class="map-room">
+								<view v-if="list.type===7" class="map-room" @click="showMap(list.content)">
 									<view class="map-name">
-										{{list.content.name}}
+										{{ list.content.name }}
 									</view>
 									<view class="map-address">
-										{{list.content.address}}
+										{{ list.content.address }}
 									</view>
 									<view class="map-pic">
 										<image class="appbutton app-map-pic" mode="aspectFit"
-											src="/static/image/map.png"></image>
+											src="/static/image/map.png" />
 										<map class="h5button" :markers="covers(list.content)"
-											:longitude="list.content.longitude" :latitude="list.content.latitude">
-										</map>
+											:longitude="list.content.longitude" :latitude="list.content.latitude" />
 									</view>
 								</view>
-
-
 							</view>
 						</view>
-
 					</view>
 
-					<view class="padbt"></view>
+					<view class="padbt" />
 				</view>
-
 			</scroll-view>
 		</view>
 
 		<!-- 提交框 -->
-		<submit ref="submit" @getSubmitHeight='getSubmitHeight' @sendmsg='sendmsg'></submit>
+		<submit ref="submit" @getSubmitHeight="getSubmitHeight" @sendmsg="sendmsg" />
 	</view>
 </template>
 
 <script>
 	import global_ from '@/common/js/Global.js' //引用全局模块
-	const innerAudioContext = uni.createInnerAudioContext();
-	import submit from '@/components/submit/submit.vue';
+	const innerAudioContext = uni.createInnerAudioContext()
+	import submit from '@/components/submit/submit.vue'
 	export default {
-		components: {
-			submit
-		},
+		name: 'chatRoom',
+		components: { submit },
 		data() {
 			return {
 				scrollToView: '',
@@ -141,8 +141,8 @@
 					border: '2rpx solid black'
 				},
 				imgList: [
-					"http://119.91.141.30/oos/2021-12-29/5b39f130-1c5c-4d78-8644-7398ca3eac45",
-					"http://119.91.141.30/oos/2021-12-19/a1fc2c6f-fe54-4ba7-87d3-1e1ab4f61164"
+					'http://119.91.141.30/oos/2021-12-29/5b39f130-1c5c-4d78-8644-7398ca3eac45',
+					'http://119.91.141.30/oos/2021-12-19/a1fc2c6f-fe54-4ba7-87d3-1e1ab4f61164'
 				],
 				msgList: [],
 				totalMsgList: [],
@@ -154,13 +154,20 @@
 				 */
 				loading: 'more',
 				pageNum: 1, //页码
-				bottomHeight: 55
+				bottomHeight: 55,
+				isGroup: false
 			}
 		},
-		onLoad() {
+		onLoad(data) {
 			this.getMsgData()
+			this.initializesChatPage(data)
 		},
 		methods: {
+			initializesChatPage(data) {
+				if (data.groupId > 0) {
+					this.isGroup = true
+				}
+			},
 			showMap(e) { //查看地图详情
 				uni.openLocation({
 					latitude: e.latitude,
@@ -168,9 +175,10 @@
 					name: e.name,
 					address: e.address,
 					success: function() {
-						console.log('success');
+						console.log('success')
+
 					}
-				});
+				})
 
 			},
 			covers(map) { //设置图标
@@ -181,11 +189,11 @@
 					width: 20,
 					height: 20
 				}]
-				return (markers);
+				return (markers)
 			},
 			msgroomclick(e) { //设置初始触碰y轴
 				this.pageY = e.changedTouches[0].pageY
-				// console.log(e);
+				// console.log(e)
 			},
 			msgroomtouchmove(e) { //滑动聊天页面取消下顶框
 				if (global_.isSubmit) {
@@ -198,33 +206,34 @@
 				}
 			},
 			playVoice(url) { //播放声音
-				innerAudioContext.src = url;
-				innerAudioContext.play();
+				innerAudioContext.src = url
+				innerAudioContext.play()
+
 			},
 			/**
 			 * 格式日期为 yyyy-MM-dd
 			 * @param {Object} date 日期
 			 */
 			formatDateTime(date) {
-				var y = date.getFullYear();
-				var m = date.getMonth() + 1; //注意这个“+1”
-				m = m < 10 ? ('0' + m) : m;
-				var d = date.getDate();
-				d = d < 10 ? ('0' + d) : d;
-				var h = date.getHours();
-				h = h < 10 ? ('0' + h) : h;
-				var minute = date.getMinutes();
-				minute = minute < 10 ? ('0' + minute) : minute;
-				var second = date.getSeconds();
-				second = second < 10 ? ('0' + second) : second;
-				return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;
+				var y = date.getFullYear()
+				var m = date.getMonth() + 1 //注意这个“+1”
+				m = m < 10 ? ('0' + m) : m
+				var d = date.getDate()
+				d = d < 10 ? ('0' + d) : d
+				var h = date.getHours()
+				h = h < 10 ? ('0' + h) : h
+				var minute = date.getMinutes()
+				minute = minute < 10 ? ('0' + minute) : minute
+				var second = date.getSeconds()
+				second = second < 10 ? ('0' + second) : second
+				return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second
 			},
 			toButtom() { // 到达数据底层
 				if (this.msgList.length > 0) {
 					this.scrollToView = ''
 					setTimeout(() => {
 						this.$nextTick(() => {
-							this.scrollToView = "msg" + this.msgList[this.msgList.length - 1].id
+							this.scrollToView = 'msg' + this.msgList[this.msgList.length - 1].id
 							//定位到底部
 							// const query = uni.createSelectorQuery().in(this);
 							// query.select('.msg-room').boundingClientRect(data => {
@@ -248,20 +257,20 @@
 			},
 			sendmsg(msg, type) { //接收到发送方法
 				let data = {
-					"id": this.msgList[this.msgList.length - 1].id + 1,
-					"userId": 10000,
-					"content": msg,
-					"createdate": this.formatDateTime(new Date()),
-					"ip": "未知ip",
-					"type": type,
-					"nickname": "micah",
-					"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/45d695d1-ab4c-4bef-8a0d-e74e3f188a8b_defaultpic.png",
-					"reback": 0,
-					"extra": null,
-					"userReceiveId": null
+					'id': this.msgList[this.msgList.length - 1].id + 1,
+					'userId': 10000,
+					'content': msg,
+					'createdate': this.formatDateTime(new Date()),
+					'ip': '未知ip',
+					'type': type,
+					'nickname': 'micah',
+					'userPic': 'https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/45d695d1-ab4c-4bef-8a0d-e74e3f188a8b_defaultpic.png',
+					'reback': 0,
+					'extra': null,
+					'userReceiveId': null
 				}
 				this.msgList.push(data)
-				if (type == 2) {
+				if (type === 2) {
 					this.imgList.push(msg)
 				}
 				this.toButtom()
@@ -272,24 +281,24 @@
 				uni.navigateBack({
 					delta: 1,
 					animationDuration: 200
-				});
+				})
 			},
 			sleep(numberMillis) { //休眠
-				var now = new Date();
-				var exitTime = now.getTime() + numberMillis;
+				var now = new Date()
+				var exitTime = now.getTime() + numberMillis
 				while (true) {
-					now = new Date();
+					now = new Date()
 					if (now.getTime() > exitTime)
-						return true;
+						return true
 				}
 			},
 			async toNextPage() { //前往下一页
-				if (this.loading != 'no-more') //判断是否还要加载动画
+				if (this.loading !== 'no-more') //判断是否还要加载动画
 					this.loading = 'loading'
 				//初始化分页数据
-				let pageSize = 6;
+				let pageSize = 6
 				let totalCount = this.totalMsgList.length
-				let totalPage = Math.ceil(totalCount / pageSize);
+				let totalPage = Math.ceil(totalCount / pageSize)
 				let index = (this.pageNum - 1) * pageSize
 
 				setTimeout(() => {
@@ -304,7 +313,7 @@
 
 					if (this.msgList.length > 0) { //原地定位
 						this.scrollToView = ''
-						var id = "msg" + this.msgList[0].id
+						var id = 'msg' + this.msgList[0].id
 						this.swanimation = false
 						setTimeout(() => {
 							this.scrollToView = id
@@ -331,165 +340,165 @@
 			async getMsgData() { //获得消息数据
 
 				this.totalMsgList = [{
-						"id": 597,
-						"userId": 10001,
-						"content": "asdasdawdsadawdsadaw",
-						"createdate": "2022-02-21 18:18:47",
-						"ip": "未知ip",
-						"type": 1,
-						"nickname": "管理员sama",
-						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/139acf27-4ae4-4aff-885d-a7def5b2babe_preview1.gif",
-						"reback": 0,
-						"extra": null,
-						"userReceiveId": null
+						'id': 597,
+						'userId': 10001,
+						'content': 'asdasdawdsadawdsadaw',
+						'createdate': '2022-02-21 18:18:47',
+						'ip': '未知ip',
+						'type': 1,
+						'nickname': '管理员sama',
+						'userPic': 'https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/139acf27-4ae4-4aff-885d-a7def5b2babe_preview1.gif',
+						'reback': 0,
+						'extra': null,
+						'userReceiveId': null
 					},
 					{
-						"id": 598,
-						"userId": 10000,
-						"content": "http://119.91.141.30/oos/2021-12-29/5b39f130-1c5c-4d78-8644-7398ca3eac45",
-						"createdate": "2022-02-21 18:57:10",
-						"ip": "未知ip",
-						"type": 2,
-						"nickname": "micah",
-						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/45d695d1-ab4c-4bef-8a0d-e74e3f188a8b_defaultpic.png",
-						"reback": 0,
-						"extra": null,
-						"userReceiveId": null
+						'id': 598,
+						'userId': 10000,
+						'content': 'http://119.91.141.30/oos/2021-12-29/5b39f130-1c5c-4d78-8644-7398ca3eac45',
+						'createdate': '2022-02-21 18:57:10',
+						'ip': '未知ip',
+						'type': 2,
+						'nickname': 'micah',
+						'userPic': 'https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/45d695d1-ab4c-4bef-8a0d-e74e3f188a8b_defaultpic.png',
+						'reback': 0,
+						'extra': null,
+						'userReceiveId': null
 					},
 					{
-						"id": 599,
-						"userId": 10000,
-						"content": "asdasdawdsadawdsadawasdasdawdsadawdsadawasdasdawdsadawdsadawasdasdawdsadawdsadaw",
-						"createdate": "2022-02-23 20:02:13",
-						"ip": "未知ip",
-						"type": 1,
-						"nickname": "micah",
-						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/45d695d1-ab4c-4bef-8a0d-e74e3f188a8b_defaultpic.png",
-						"reback": 0,
-						"extra": null,
-						"userReceiveId": null
+						'id': 599,
+						'userId': 10000,
+						'content': 'asdasdawdsadawdsadawasdasdawdsadawdsadawasdasdawdsadawdsadawasdasdawdsadawdsadaw',
+						'createdate': '2022-02-23 20:02:13',
+						'ip': '未知ip',
+						'type': 1,
+						'nickname': 'micah',
+						'userPic': 'https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/45d695d1-ab4c-4bef-8a0d-e74e3f188a8b_defaultpic.png',
+						'reback': 0,
+						'extra': null,
+						'userReceiveId': null
 					},
 					{
-						"id": 608,
-						"userId": 10002,
-						"content": "http://119.91.141.30/oos/2021-12-19/a1fc2c6f-fe54-4ba7-87d3-1e1ab4f61164",
-						"createdate": "2022-03-14 11:18:48",
-						"ip": "未知ip",
-						"type": 2,
-						"nickname": "张三",
-						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png",
-						"reback": 0,
-						"extra": null,
-						"userReceiveId": null
+						'id': 608,
+						'userId': 10002,
+						'content': 'http://119.91.141.30/oos/2021-12-19/a1fc2c6f-fe54-4ba7-87d3-1e1ab4f61164',
+						'createdate': '2022-03-14 11:18:48',
+						'ip': '未知ip',
+						'type': 2,
+						'nickname': '张三',
+						'userPic': 'https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png',
+						'reback': 0,
+						'extra': null,
+						'userReceiveId': null
 					},
 					{
-						"id": 609,
-						"userId": 10002,
-						"content": "asdasdawdsadawdsadaw",
-						"createdate": "2022-04-9 11:41:53",
-						"ip": "未知ip",
-						"type": 1,
-						"nickname": "张三",
-						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png",
-						"reback": 0,
-						"extra": null,
-						"userReceiveId": null
+						'id': 609,
+						'userId': 10002,
+						'content': 'asdasdawdsadawdsadaw',
+						'createdate': '2022-04-9 11:41:53',
+						'ip': '未知ip',
+						'type': 1,
+						'nickname': '张三',
+						'userPic': 'https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png',
+						'reback': 0,
+						'extra': null,
+						'userReceiveId': null
 					},
 					{
-						"id": 610,
-						"userId": 10000,
-						"content": "asdasdasdasd",
-						"createdate": "2022-04-9 11:42:32",
-						"ip": "未知ip",
-						"type": 1,
-						"nickname": "micah",
-						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/45d695d1-ab4c-4bef-8a0d-e74e3f188a8b_defaultpic.png",
-						"reback": 0,
-						"extra": null,
-						"userReceiveId": null
+						'id': 610,
+						'userId': 10000,
+						'content': 'asdasdasdasd',
+						'createdate': '2022-04-9 11:42:32',
+						'ip': '未知ip',
+						'type': 1,
+						'nickname': 'micah',
+						'userPic': 'https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/45d695d1-ab4c-4bef-8a0d-e74e3f188a8b_defaultpic.png',
+						'reback': 0,
+						'extra': null,
+						'userReceiveId': null
 					},
 					{
-						"id": 611,
-						"userId": 10002,
-						"content": "asdasdawdsadawdsadaasdasdawdsadawdsadawasdasdawdsadawdsadawasdasdawdsadawdsadaww",
-						"createdate": "2022-04-9 11:41:53",
-						"ip": "未知ip",
-						"type": 1,
-						"nickname": "张三",
-						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png",
-						"reback": 0,
-						"extra": null,
-						"userReceiveId": null
+						'id': 611,
+						'userId': 10002,
+						'content': 'asdasdawdsadawdsadaasdasdawdsadawdsadawasdasdawdsadawdsadawasdasdawdsadawdsadaww',
+						'createdate': '2022-04-9 11:41:53',
+						'ip': '未知ip',
+						'type': 1,
+						'nickname': '张三',
+						'userPic': 'https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png',
+						'reback': 0,
+						'extra': null,
+						'userReceiveId': null
 					},
 					{
-						"id": 612,
-						"userId": 10000,
-						"content": {
+						'id': 612,
+						'userId': 10000,
+						'content': {
 							time: 20,
 							voice: ''
 						},
-						"createdate": "2022-04-9 11:41:53",
-						"ip": "未知ip",
-						"type": 6,
-						"nickname": "张三",
-						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png",
-						"reback": 0,
-						"extra": null,
-						"userReceiveId": null
+						'createdate': '2022-04-9 11:41:53',
+						'ip': '未知ip',
+						'type': 6,
+						'nickname': '张三',
+						'userPic': 'https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png',
+						'reback': 0,
+						'extra': null,
+						'userReceiveId': null
 					},
 					{
-						"id": 613,
-						"userId": 10002,
-						"content": {
+						'id': 613,
+						'userId': 10002,
+						'content': {
 							time: 6,
 							voice: ''
 						},
-						"createdate": "2022-04-9 11:41:53",
-						"ip": "未知ip",
-						"type": 6,
-						"nickname": "张三",
-						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png",
-						"reback": 0,
-						"extra": null,
-						"userReceiveId": null
+						'createdate': '2022-04-9 11:41:53',
+						'ip': '未知ip',
+						'type': 6,
+						'nickname': '张三',
+						'userPic': 'https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png',
+						'reback': 0,
+						'extra': null,
+						'userReceiveId': null
 					},
 					{
-						"id": 614,
-						"userId": 10002,
-						"content": {
-							"name": "东华门街道锡拉胡同北京利生体育商厦",
-							"latitude": 39.916404,
-							"longitude": 116.410244,
-							"address": "北京市东城区东华门街道锡拉胡同北京利生体育商厦"
+						'id': 614,
+						'userId': 10002,
+						'content': {
+							'name': '东华门街道锡拉胡同北京利生体育商厦',
+							'latitude': 39.916404,
+							'longitude': 116.410244,
+							'address': '北京市东城区东华门街道锡拉胡同北京利生体育商厦'
 						},
-						"createdate": "2022-04-9 11:41:53",
-						"ip": "未知ip",
-						"type": 7,
-						"nickname": "张三",
-						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png",
-						"reback": 0,
-						"extra": null,
-						"userReceiveId": null
+						'createdate': '2022-04-9 11:41:53',
+						'ip': '未知ip',
+						'type': 7,
+						'nickname': '张三',
+						'userPic': 'https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png',
+						'reback': 0,
+						'extra': null,
+						'userReceiveId': null
 					},
 					{
-						"id": 615,
-						"userId": 10000,
-						"content": {
-							"name": "东华门街道锡拉胡同北京利生体育商厦",
-							"latitude": 39.916404,
-							"longitude": 116.410244,
-							"address": "北京市东城区东华门街道锡拉胡同北京利生体育商厦"
+						'id': 615,
+						'userId': 10000,
+						'content': {
+							'name': '东华门街道锡拉胡同北京利生体育商厦',
+							'latitude': 39.916404,
+							'longitude': 116.410244,
+							'address': '北京市东城区东华门街道锡拉胡同北京利生体育商厦'
 						},
-						"createdate": "2022-04-9 11:41:53",
-						"ip": "未知ip",
-						"type": 7,
-						"nickname": "micah",
-						"userPic": "https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png",
-						"reback": 0,
-						"extra": null,
-						"userReceiveId": null
+						'createdate': '2022-04-9 11:41:53',
+						'ip': '未知ip',
+						'type': 7,
+						'nickname': 'micah',
+						'userPic': 'https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/oos/2022-02-14/59782027-0abd-4fee-887b-89d8628fb462_littledog.png',
+						'reback': 0,
+						'extra': null,
+						'userReceiveId': null
 					}
-				];
+				]
 				this.totalMsgList = this.totalMsgList.reverse()
 				await this.toNextPage()
 
@@ -501,21 +510,21 @@
 			 * @returns {string} 处理好的时间
 			 */
 			formatDate1(date, fmt) {
-				let timeChar = ""
+				let timeChar = ''
 				if (this.compareDate(date)) {
-					timeChar = "今天"
+					timeChar = '今天'
 				} else if (this.compareDate(date, 1)) {
-					timeChar = "昨天"
+					timeChar = '昨天'
 				} else if (this.compareDate(date, 2)) {
-					timeChar = "前天"
+					timeChar = '前天'
 				} else {
-					timeChar = ""
-					fmt = "yyyy-MM-dd HH:mm:ss";
+					timeChar = ''
+					fmt = 'yyyy-MM-dd HH:mm:ss'
 				}
-				date = new Date(date);
+				date = new Date(date)
 
-				if (typeof(fmt) === "undefined") {
-					fmt = "yyyy-MM-dd HH:mm:ss";
+				if (typeof(fmt) === 'undefined') {
+					fmt = 'yyyy-MM-dd HH:mm:ss'
 				}
 				if (/(y+)/.test(fmt)) {
 					fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
@@ -531,7 +540,7 @@
 				for (let k in o) {
 					if (new RegExp(`(${k})`).test(fmt)) {
 						let str = o[k] + ''
-						fmt = fmt.replace(RegExp.$1, RegExp.$1.length === 1 ? str : ('00' + str).substr(str.length));
+						fmt = fmt.replace(RegExp.$1, RegExp.$1.length === 1 ? str : ('00' + str).substr(str.length))
 					}
 				}
 				return timeChar + fmt
@@ -552,8 +561,8 @@
 					return time === null ? new Date() : new Date(time)
 				}
 				// 这里返回 比较后的值，比较成功，则返回`true`，失败则返回`false`
-				return (newDate(timestamp).getDate() == newDate().getDate() - day) && (newDate(timestamp).getMonth() ==
-					newDate().getMonth()) && (newDate(timestamp).getYear() == newDate().getYear())
+				return (newDate(timestamp).getDate() === newDate().getDate() - day) && (newDate(timestamp).getMonth() ===
+					newDate().getMonth()) && (newDate(timestamp).getYear() === newDate().getYear())
 			},
 			/**
 			 * 处理时间显示
@@ -580,17 +589,17 @@
 			 */
 			getTime(beginTime, endTime) {
 				//2021-06-30 01:25:33
-				if (endTime.substring(0, endTime.indexOf(":") - 1) != beginTime.substring(0, beginTime.indexOf(":") - 1))
-					return false;
-				endTime = endTime.substring(endTime.indexOf(":") + 1, endTime.indexOf(":") + 3)
-				beginTime = beginTime.substring(beginTime.indexOf(":") + 1, beginTime.indexOf(":") + 3)
+				if (endTime.substring(0, endTime.indexOf(':') - 1) !== beginTime.substring(0, beginTime.indexOf(':') - 1))
+					return false
+				endTime = endTime.substring(endTime.indexOf(':') + 1, endTime.indexOf(':') + 3)
+				beginTime = beginTime.substring(beginTime.indexOf(':') + 1, beginTime.indexOf(':') + 3)
 				return 5 > (endTime - beginTime)
 			},
 			previewImg(msg) { //查看放大图片
-				let index = 0;
+				let index = 0
 				for (let i = 0; i < this.imgList.length; i++) {
-					if (this.imgList[i] == msg) {
-						index = i;
+					if (this.imgList[i] === msg) {
+						index = i
 					}
 				}
 				uni.previewImage({
@@ -599,13 +608,13 @@
 					longPressActions: {
 						itemList: ['发送给朋友', '保存图片', '收藏'],
 						success: function(data) {
-							console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
+							console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片')
 						},
 						fail: function(err) {
-							console.log(err.errMsg);
+							console.log(err.errMsg)
 						}
 					}
-				});
+				})
 			}
 		}
 	}
@@ -859,6 +868,33 @@
 		.bar-left {
 			display: flex;
 
+			.name-box {
+				display: flex;
+				flex-direction: column;
+
+				.box-name {
+					font-size: $uni-font-size-lg;
+					color: $uni-text-color;
+					line-height: 30rpx;
+					text-align: center;
+					vertical-align: middle;
+					height: 30rpx;
+					justify-content: center;
+					margin-left: $uni-spacing-col-lg;
+					font-weight: 500;
+
+				}
+
+				.online {
+					font-size: $uni-font-size-base;
+					color: $uni-text-color-grey;
+					line-height: 30rpx;
+					height: 30rpx;
+					margin-left: $uni-spacing-col-lg;
+					margin-top: 10rpx;
+				}
+			}
+
 			.name {
 				font-size: $uni-font-size-lg;
 				color: $uni-text-color;
@@ -868,7 +904,7 @@
 				height: 60rpx;
 				justify-content: center;
 				margin-left: $uni-spacing-col-lg;
-
+				font-weight: 500;
 			}
 		}
 	}

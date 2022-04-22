@@ -1,17 +1,19 @@
 {
-    "id": "oveui-grid",
-    "name": "简单好用的宫格组件Grid",
-    "version": "1.4.0102",
-    "description": "Grid宫格组件，包含grid、grid-item两个组件，简单易用，要用uni_modules版本 请移步 https://ext.dcloud.net.cn/plugin?id=6356",
-    "keywords": [
-        "宫格组件",
-        "grid",
-        "grid-item"
-    ],
-    "dcloudext": {
-        "category": [
-            "前端组件",
-            "通用组件"
-        ]
-    }
+  "name": "xunda-app",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "lint": "vue-cli-service lint"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-eslint": "^5.0.4",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "prettier": "^2.4.1"
+  },
+  "dcloudext": {},
+  "id": "xunda-app",
+  "keywords": []
 }

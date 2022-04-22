@@ -23,6 +23,7 @@
 		data() {
 			return {
 				count: 0,
+				slist: [],
 				list: [{
 						"selected": false,
 						"name": "白烨磊",
@@ -270,8 +271,10 @@
 			count(count) {
 				count = 0
 				this.list.forEach(e => {
-					if (e.selected)
+					if (e.selected) {
 						count++
+					}
+
 				})
 				this.count = count
 			}
@@ -280,7 +283,13 @@
 			tapItem(e) {
 				e.selected = !e.selected
 				e.selected ? this.count++ : this.count--
-				this.$emit("getCount", this.count)
+				this.slist = []
+				this.list.forEach(e => {
+					if (e.selected) {
+						this.slist.push(e)
+					}
+				})
+				this.$emit("getCount", this.count, this.slist)
 			}
 		}
 	}

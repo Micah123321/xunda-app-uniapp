@@ -2,13 +2,16 @@
 	<view>
 
 		<!--    顶部-->
-		<uni-nav-bar dark fixed color="rgba(39,40,50,1)" border backgroundColor="#ffffff" statusBar title="xunda">
+		<uni-nav-bar dark fixed color="rgba(39,40,50,1)" border backgroundColor="#ffffff" statusBar>
 			<block slot="left">
 				<view class="bar-left">
 					<view class="head-img">
 						<image @click="goHome"
 							src="https://xunda-ui.oss-cn-shenzhen.aliyuncs.com/2021-11-09/defaultpic.png" alt=""
 							class="user_pic"></image>
+					</view>
+					<view class="name">
+						{{username}}
 					</view>
 				</view>
 			</block>
@@ -28,8 +31,8 @@
 					<view class="left">
 						<view class="msg-item-img">
 							<image :src="list.userPic" class="user_pic">
-							<uni-badge class="msg-item-img-tag" text="1" />
-							<!-- <uni-tag class="msg-item-img-tag" text="1" type="error" :circle="true"></uni-tag> -->
+								<uni-badge :type="list.isRemind?'error':'info'" class="msg-item-img-tag" text="1" />
+								<!-- <uni-tag class="msg-item-img-tag" text="1" type="error" :circle="true"></uni-tag> -->
 						</view>
 					</view>
 					<view class="right">
@@ -50,118 +53,77 @@
 
 <script>
 	export default {
+		computed: {
+			username() {
+				return this.$store.state.username
+
+			}
+		},
 		data() {
 			return {
-				imageURL: "123",
+				imageURL: '123',
 				options: [{
 					text: '取消',
-					style: {
-						backgroundColor: '#007aff'
-					}
+					style: { backgroundColor: '#007aff' }
 				}, {
 					text: '确认',
-					style: {
-						backgroundColor: '#dd524d'
-					}
+					style: { backgroundColor: '#dd524d' }
 				}],
-				dataList: [
-
+				dataList: [ //type 0系统请求 1 用户消息 2群组消息
 					{
-						"id": 583,
-						"userId": 47,
-						"content": "小妹添加你为好友,小妹请求添加",
-						"createdate": "2022-02-21 07:32:04",
-						"ip": "未知ip",
-						"type": 1,
-						"nickname": "好友申请",
-						"userPic":'/static/icon/friend_add_icon.png',
-						"reback": 0
+						'id': 583,
+						'content': '小妹添加你为好友,小妹请求添加',
+						'createdate': '2022-02-21 07:32:04',
+						'type': 0,
+						'isRemind': true,
+						'nickname': '好友申请',
+						'userPic': '/static/icon/friend_add_icon.png'
 					},
 					{
-						"id": 584,
-						"userId": 48,
-						"content": "你好,micah",
-						"createdate": "2022-02-21 17:40:29",
-						"ip": "未知ip",
-						"type": 2,
-						"nickname": "小明",
-						"userPic": "http://cdn.u2.huluxia.com/g3/M02/31/D5/wKgBOVwNc82AI515AABGI7WhK4w19.jpeg",
-						"reback": 0
+						'id': 584,
+						'userId': 48,
+						'content': '你好,micah',
+						'createdate': '2022-02-21 17:40:29',
+						'type': 1,
+						'isRemind': true,
+						'nickname': '小明',
+						'userPic': 'http://cdn.u2.huluxia.com/g3/M02/31/D5/wKgBOVwNc82AI515AABGI7WhK4w19.jpeg'
 					},
 					{
-						"id": 585,
-						"userId": 48,
-						"content": "dddd",
-						"createdate": "2022-03-01 07:52:02",
-						"ip": "未知ip",
-						"type": 1,
-						"nickname": "小张",
-						"userPic": "http://cdn.u2.huluxia.com/g3/M00/27/CD/wKgBOVwJgW-ASQo9AACvmQ_XQ_k733.jpg",
-						"reback": 0
+						'id': 586,
+						'groupId': 1,
+						'content': 'micah: 东北林业大学',
+						'createdate': '2022-04-22 16:06:05',
+						'type': 2,
+						'isRemind': true,
+						'nickname': 'xx1群',
+						'userPic': 'https://ae01.alicdn.com/kf/HTB1UqNMbvWG3KVjSZFP760aiXXaz.png'
 					},
 					{
-						"id": 586,
-						"userId": 48,
-						"content": "ccccccawdsadawd",
-						"createdate": "2022-03-22 16:06:05",
-						"ip": "未知ip",
-						"type": 3,
-						"nickname": "哥哥",
-						"userPic": "https://ae01.alicdn.com/kf/HTB1UqNMbvWG3KVjSZFP760aiXXaz.png",
-						"reback": 0
-					},
-					{
-						"id": 587,
-						"userId": 47,
-						"content": "你好碰撞带涉及到受到环境",
-						"createdate": "2022-04-02 18:04:17",
-						"ip": "未知ip",
-						"type": 1,
-						"nickname": "小庄",
-						"userPic": "http://cdn.u2.huluxia.com/g3/M03/2A/66/wKgBOVwKh7iAPMeaAAG0aafdrcs181.jpg",
-						"reback": 0
-					},
-					{
-						"id": 588,
-						"userId": 50,
-						"content": "你好碰撞带涉及到受到环境",
-						"createdate": "2022-04-03 08:45:09",
-						"ip": "未知ip",
-						"type": 1,
-						"nickname": "小强",
-						"userPic": "http://cdn.u2.huluxia.com/g3/M00/26/B0/wKgBOVwJEcmAMQRdAACdQX9Ku44971.jpg",
-						"reback": 0
-					},
-					{
-						"id": 586,
-						"userId": 48,
-						"content": "你好碰撞带涉及到受到环境",
-						"createdate": "2022-03-22 16:06:05",
-						"ip": "未知ip",
-						"type": 3,
-						"nickname": "哥哥",
-						"userPic": "https://ae01.alicdn.com/kf/HTB1UqNMbvWG3KVjSZFP760aiXXaz.png",
-						"reback": 0
+						'id': 586,
+						'groupId': 2,
+						'content': 'micah: 西安工业大学',
+						'createdate': '2022-04-22 16:06:05',
+						'type': 2,
+						'isRemind': false,
+						'nickname': 'xx2群',
+						'userPic': 'https://ae01.alicdn.com/kf/HTB1UqNMbvWG3KVjSZFP760aiXXaz.png'
 					}
 				]
 			}
 		},
 		methods: {
-			goBuildGroup(){
-				uni.navigateTo({
-					url: '../../buildgroup/buildgroup',
-				});
+			goBuildGroup() {
+				uni.navigateTo({ url: '../../buildgroup/buildgroup', })
 			},
 			goHome() {
 				uni.navigateTo({
 					url: '../../userhome/userhome',
-					animationType: "slide-in-left"
-				});
+					animationType: 'slide-in-left'
+				})
 			},
 			gosearch() {
-				uni.navigateTo({
-					url: '../../search/search'
-				});
+				uni.navigateTo({ url: '../../search/search' })
 			},
 			onClick(e) {
 				console.log('点击了' + (e.position === 'left' ? '左侧' : '右侧') + e.content.text + '按钮')
@@ -171,22 +133,26 @@
 			},
 			clickmsg(e, index) {
 				console.log(e, index)
-				if (index == 0) {
-					uni.navigateTo({
-						url: '../../friend-apply-info/friend-apply-info'
-					});
-				}if (index == 1) {
-					uni.navigateTo({
-						url: '../../chat/chat'
-					});
+				switch (e.type) {
+					case 0:
+						uni.navigateTo({ url: '../../friend-apply-info/friend-apply-info' })
+						break
+					case 1:
+						uni.navigateTo({ url: '../../chat/chat?userId=' + e.userId })
+						break
+					case 2:
+						uni.navigateTo({ url: '../../chat/chat?groupId=' + e.groupId })
+						break
+					default:
+						break
 				}
 			},
 			bindClick(e) {
-				console.log(e);
+				console.log(e)
 				uni.showToast({
 					title: `点击了${e.position === 'left' ? '左侧' : '右侧'} ${e.content.text}按钮`,
 					icon: 'none'
-				});
+				})
 			},
 			/**
 			 * 格式化处理日期信息
@@ -197,23 +163,23 @@
 			formatDate1(date, fmt) {
 
 
-				let timeChar = ""
+				let timeChar = ''
 				if (this.compareDate(date)) {
-					timeChar = "今天"
+					timeChar = '今天'
 				} else
 				if (this.compareDate(date, 1)) {
-					timeChar = "昨天"
+					timeChar = '昨天'
 				} else
 				if (this.compareDate(date, 2)) {
-					timeChar = "前天"
+					timeChar = '前天'
 				} else {
-					timeChar = ""
-					fmt = "yyyy-MM-dd HH:mm:ss";
+					timeChar = ''
+					fmt = 'yyyy-MM-dd HH:mm:ss'
 				}
-				date = new Date(date);
+				date = new Date(date)
 
-				if (typeof(fmt) === "undefined") {
-					fmt = "yyyy-MM-dd HH:mm:ss";
+				if (typeof(fmt) === 'undefined') {
+					fmt = 'yyyy-MM-dd HH:mm:ss'
 				}
 				if (/(y+)/.test(fmt)) {
 					fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
@@ -229,7 +195,7 @@
 				for (let k in o) {
 					if (new RegExp(`(${k})`).test(fmt)) {
 						let str = o[k] + ''
-						fmt = fmt.replace(RegExp.$1, RegExp.$1.length === 1 ? str : ('00' + str).substr(str.length));
+						fmt = fmt.replace(RegExp.$1, RegExp.$1.length === 1 ? str : ('00' + str).substr(str.length))
 					}
 				}
 				return timeChar + fmt
@@ -250,23 +216,48 @@
 					return time === null ? new Date() : new Date(time)
 				}
 				// 这里返回 比较后的值，比较成功，则返回`true`，失败则返回`false`
-				return (newDate(timestamp).getDate() == newDate().getDate() - day) && (newDate(timestamp).getMonth() ==
-					newDate().getMonth()) && (newDate(timestamp).getYear() == newDate().getYear())
+				return (newDate(timestamp).getDate() === newDate().getDate() - day) && (newDate(timestamp).getMonth() ===
+					newDate().getMonth()) && (newDate(timestamp).getYear() === newDate().getYear())
 			},
 		}
 	}
 </script>
 
 <style lang="scss">
-	
-	/deep/.uni-badge.uni-badge--error.uni-badge--small{
+	.bar-left {
+		display: flex;
+		flex-direction: row;
+
+		.head-img {
+			// padding: $uni-spacing-col-sm;
+
+			.user_pic {
+				border-radius: $uni-border-radius-sm;
+				height: 72rpx;
+				width: 72rpx;
+			}
+		}
+
+
+		.name {
+			font-size: $uni-font-size-lg;
+			color: $uni-text-color;
+			line-height: 72rpx;
+			height: 72rpx;
+			margin-left: $uni-spacing-col-sm;
+			font-weight: bold;
+		}
+	}
+
+
+	/deep/.uni-badge.uni-badge--error.uni-badge--small {
 		height: 40rpx !important;
 		width: 40rpx !important;
 		line-height: 40rpx;
 		font-size: 30rpx !important;
 	}
-	
-	
+
+
 	/deep/.uni-navbar__header-btns {
 		overflow: initial !important;
 	}
@@ -281,15 +272,9 @@
 		margin-right: $uni-spacing-col-sm;
 	}
 
-	.user_pic {
-		border-radius: $uni-border-radius-sm;
-		height: 72rpx;
-		width: 72rpx;
-	}
 
-	.head-img {
-		padding: $uni-spacing-col-sm;
-	}
+
+
 
 
 	.msg-item {
@@ -371,7 +356,7 @@
 				//font-size: 18px;
 				color: $uni-text-color;
 				letter-spacing: -0.62px;
-				font-weight: 400;
+				font-weight: 500;
 			}
 		}
 
