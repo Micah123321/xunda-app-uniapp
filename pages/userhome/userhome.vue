@@ -86,6 +86,7 @@
 
 <script>
 	export default {
+		name:'userHome',
 		data() {
 			return {
 				animationData: {},
@@ -170,6 +171,7 @@
 
 				font-size: 52rpx;
 				color: $uni-text-color;
+
 			}
 
 			.area-form {

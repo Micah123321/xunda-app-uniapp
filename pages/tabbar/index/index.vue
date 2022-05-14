@@ -52,13 +52,9 @@
 </template>
 
 <script>
+	import { mapState } from 'vuex'
 	export default {
-		computed: {
-			username() {
-				return this.$store.state.username
-
-			}
-		},
+		computed: { ...mapState(['username']) },
 		data() {
 			return {
 				imageURL: '123',

@@ -51,8 +51,8 @@
 </template>
 
 <script>
-	import ImageCropper from "@/components/ling-imgcropper/ling-imgcropper.vue";
-	import UserSelector from "@/components/userselector/userselector.vue"
+	import ImageCropper from '@/components/ling-imgcropper/ling-imgcropper.vue'
+	import UserSelector from '@/components/userselector/userselector.vue'
 	export default {
 		components: {
 			ImageCropper,
@@ -60,8 +60,8 @@
 		},
 		data() {
 			return {
-				tempFilePath: "/static/icon/group_icon_3.png",
-				cropFilePath: "/static/icon/group_icon_3.png",
+				tempFilePath: '/static/icon/group_icon_3.png',
+				cropFilePath: '/static/icon/group_icon_3.png',
 				count: 0,
 				groupname: '',
 				grouppic: '',
@@ -70,7 +70,7 @@
 		},
 		methods: {
 			bulidGroup(){
-				console.log(this.slist);
+				console.log(this.slist)
 			},
 			getCount(e,list) {
 				this.count = e
@@ -79,46 +79,46 @@
 			upload() {
 				uni.chooseImage({
 					count: 1, //默认9
-					sizeType: ["original", "compressed"], //可以指定是原图还是压缩图，默认二者都有
-					sourceType: ["album", "camera"], //从相册选择
-					success: (res) => {
-						this.tempFilePath = res.tempFilePaths.shift();
-						this.grouppic = res.tempFilePaths.shift();
+					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+					sourceType: ['album', 'camera'], //从相册选择
+					success: res => {
+						this.tempFilePath = res.tempFilePaths.shift()
+						this.grouppic = res.tempFilePaths.shift()
 					},
-				});
+				})
 			},
 			back() {
 				uni.navigateBack({
 					delta: 1,
 					animationType: 'pop-out',
 					animationDuration: 200
-				});
+				})
 			},
 			confirm(e) {
-				this.tempFilePath = "";
-				this.cropFilePath = e.detail.tempFilePath;
+				this.tempFilePath = ''
+				this.cropFilePath = e.detail.tempFilePath
 				// #ifdef APP-PLUS||MP
 				uni.uploadFile({
-					url: "后端地址上传图片接口地址",
+					url: '后端地址上传图片接口地址',
 					filePath: this.cropFilePath,
-					name: "file",
-					fileType: "image",
+					name: 'file',
+					fileType: 'image',
 					//formData:{},传递参数
-					success: (uploadFileRes) => {
-						var backstr = uploadFileRes.data;
+					success: uploadFileRes => {
+						var backstr = uploadFileRes.data
 						//自定义操作
 					},
 
 					fail(e) {
-						console.log("this is errormes " + e.message);
+						console.log('this is errormes ' + e.message)
 					},
-				});
+				})
 
 				// #endif
 			},
 			cancel() {
-				console.log("canceled");
-				this.tempFilePath = "";
+				console.log('canceled')
+				this.tempFilePath = ''
 			},
 		}
 	}
@@ -205,6 +205,7 @@
 		background-color: #0078d4;
 		box-shadow: 0 36rpx $uni-border-radius-lg 0 rgba(39, 40, 50, 0.1);
 		border-radius: $uni-border-radius-lg;
+		margin-top: 50rpx;
 
 		.pan {
 			height: 50rpx;

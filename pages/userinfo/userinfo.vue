@@ -67,12 +67,13 @@
 					</template>
 					<template v-slot:body>
 						<view class="msg">
-							micah
+							{{username}}
 						</view>
 					</template>
 					<template v-slot:footer>
 						<view class="forward">
-							<uni-icons @click="modify('昵称','123','msg')" color="rgba(39,40,50,0.6)" type="forward">
+							<uni-icons @click="modify('昵称',username,'username')" color="rgba(39,40,50,0.6)"
+								type="forward">
 							</uni-icons>
 						</view>
 					</template>
@@ -120,7 +121,7 @@
 					</template>
 					<template v-slot:footer>
 						<view class="forward">
-							<uni-icons @click="modify('电话','123','msg')" color="rgba(39,40,50,0.6)" type="forward">
+							<uni-icons @click="modify('电话','18812345432','msg')" color="rgba(39,40,50,0.6)" type="forward">
 							</uni-icons>
 						</view>
 					</template>
@@ -137,7 +138,7 @@
 					</template>
 					<template v-slot:footer>
 						<view class="forward">
-							<uni-icons @click="modify('邮箱','123','msg')" color="rgba(39,40,50,0.6)" type="forward">
+							<uni-icons @click="modify('邮箱','micah@qq.com','msg')" color="rgba(39,40,50,0.6)" type="forward">
 							</uni-icons>
 						</view>
 					</template>
@@ -172,8 +173,7 @@
 		</view>
 
 		<view :animation="animationData" class="modify">
-			<modify @cancle="cancle" @ok="ok" :type="modifyData.type" :title="modifyData.title"
-				:value="modifyData.value">
+			<modify ref="modify" @cancle="cancle" @ok="ok" :type="modifyData.type" :title="modifyData.title">
 			</modify>
 
 		</view>
@@ -182,9 +182,11 @@
 </template>
 
 <script>
-	import Modify from "@/components/modify/modify.vue"
-	import ImageCropper from "@/components/ling-imgcropper/ling-imgcropper.vue";
+	import { mapState } from 'vuex'
+	import Modify from '@/components/modify/modify.vue'
+	import ImageCropper from '@/components/ling-imgcropper/ling-imgcropper.vue'
 	export default {
+		computed: { ...mapState(['username']) },
 		components: {
 			ImageCropper,
 			Modify
@@ -193,28 +195,26 @@
 			return {
 				isModify: false,
 				modifyData: {
-					value: "123",
-					title: "321",
-					type: "msg"
+					value: '123',
+					title: '321',
+					type: 'msg'
 				},
 				animationData: {},
-				tempFilePath: "",
-				cropFilePath: "",
-				avatarList: [{
-					url: 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/460d46d0-4fcc-11eb-8ff1-d5dcf8779628.png'
-				}, {
-					url: 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/460d46d0-4fcc-11eb-8ff1-d5dcf8779628.png'
-				}, {
-					url: 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/460d46d0-4fcc-11eb-8ff1-d5dcf8779628.png'
-				}],
-				single: "2021-2-12",
+				tempFilePath: '',
+				cropFilePath: '',
+				avatarList: [
+					{ url: 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/460d46d0-4fcc-11eb-8ff1-d5dcf8779628.png' },
+					{ url: 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/460d46d0-4fcc-11eb-8ff1-d5dcf8779628.png' },
+					{ url: 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/460d46d0-4fcc-11eb-8ff1-d5dcf8779628.png' }
+				],
+				single: '2021-2-12',
 				sexvalue: 0,
 				sexrange: [{
-					"value": 0,
-					"text": "男"
+					'value': 0,
+					'text': '男'
 				}, {
-					"value": 1,
-					"text": "女"
+					'value': 1,
+					'text': '女'
 				}]
 			}
 		},
@@ -222,10 +222,10 @@
 			modify(title, value, type) {
 				this.isModify = !this.isModify
 				this.modifyData = {
-					value,
 					title,
 					type
 				}
+				this.$refs.modify.value = value
 				var animation = uni.createAnimation({
 					duration: 200,
 					timingFunction: 'ease',
@@ -233,33 +233,36 @@
 				if (this.isModify) {
 					animation.bottom(0).step()
 				} else {
-					animation.bottom(-100 + "%").step()
+					animation.bottom(-100 + '%').step()
 				}
 				this.animationData = animation.export()
 
 			},
-			ok(value) {
-				console.log("点击成功:" + value);
+			ok(value, type) {
+				console.log('点击成功:' + value, type)
+				if (type === 'username') {
+					this.$store.commit('changeUserName', value)
+				}
 				//TODO 更新数据库,刷新数据
 				this.modify(null, null)
 			},
-			cancle() {
-				console.log("取消");
+			cancle(value) {
+				console.log('取消', value)
 				this.modify(null, null)
 			},
 			upload() {
 				uni.chooseImage({
 					count: 1, //默认9
-					sizeType: ["original", "compressed"], //可以指定是原图还是压缩图，默认二者都有
-					sourceType: ["album", "camera"], //从相册选择
-					success: (res) => {
-						this.tempFilePath = res.tempFilePaths.shift();
+					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+					sourceType: ['album', 'camera'], //从相册选择
+					success: res => {
+						this.tempFilePath = res.tempFilePaths.shift()
 					},
-				});
+				})
 			},
 			confirm(e) {
-				this.tempFilePath = "";
-				this.cropFilePath = e.detail.tempFilePath;
+				this.tempFilePath = ''
+				this.cropFilePath = e.detail.tempFilePath
 
 				// #ifdef APP-PLUS||MP
 				//除了H5端返回base64数据外，其他端都是返回临时地址，所以你要判断base64还是临时文件名，（用条件编译APP-PLUS||MP执行编译。）
@@ -267,38 +270,38 @@
 				//待活你要判断是H5还是其他端传给后端类型参数让后端判断执行何种情况代码就OK了
 
 				uni.uploadFile({
-					url: "后端地址上传图片接口地址",
+					url: '后端地址上传图片接口地址',
 					filePath: this.cropFilePath,
-					name: "file",
-					fileType: "image",
+					name: 'file',
+					fileType: 'image',
 					//formData:{},传递参数
-					success: (uploadFileRes) => {
-						var backstr = uploadFileRes.data;
+					success: uploadFileRes => {
+						var backstr = uploadFileRes.data
 						//自定义操作
 					},
 
 					fail(e) {
-						console.log("this is errormes " + e.message);
+						console.log('this is errormes ' + e.message)
 					},
-				});
+				})
 
 				// #endif
 			},
 			cancel() {
-				console.log("canceled");
-				this.tempFilePath = "";
+				console.log('canceled')
+				this.tempFilePath = ''
 			},
 			back() {
 				uni.navigateBack({
 					delta: 1,
 					animationType: 'pop-out',
 					animationDuration: 200
-				});
+				})
 			},
 			showDatePicker() {
 				// console.log();
 				this.$refs.datepicker.show()
-				return false;
+				return false
 			}
 		}
 	}
@@ -323,9 +326,9 @@
 		.exit {
 			padding: 0 $uni-spacing-row-base;
 			margin-top: $uni-spacing-row-base;
-			position: fixed;
+			// position: fixed;
 			bottom: 0;
-			width:90%;
+			width: 90%;
 			height: 100rpx;
 			padding-top: 10rpx;
 			padding-bottom: env(safe-area-inset-bottom);

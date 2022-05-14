@@ -25,7 +25,7 @@
 
 		<!-- 修改内容区 -->
 		<view class="modify-room">
-			<textarea v-if="type=='msg'" class="area-form" :value="value" maxlength="120">
+			<textarea v-if="type=='msg'||type=='username'" class="area-form" v-model="value" maxlength="120">
 
 			</textarea>
 
@@ -51,23 +51,20 @@
 
 <script>
 	export default {
-		name: "modify",
+		name: 'modify',
 		props: {
 			title: {
 				type: String,
-				default: "标题"
-			},
-			value: {
-				type: String,
-				default: "内容"
+				default: '标题'
 			},
 			type: {
 				type: String,
-				default: "msg"
+				default: 'msg'
 			},
 		},
 		data() {
 			return {
+				value:'',
 				customFormData: {
 					opwd: '',
 					pwd: '',
@@ -92,8 +89,8 @@
 							errorMessage: '确认密码不能为空'
 						}, {
 							validateFunction: function(rule, value, data, callback) {
-								console.log(data);
-								if (value != data.pwd) {
+								console.log(data)
+								if (value !== data.pwd) {
 									callback('请与上面密码一致')
 								}
 								return true
@@ -101,20 +98,20 @@
 						}]
 					}
 				},
-			};
+			}
 		},
 		methods: {
 			cancle() {
-				this.$emit("cancle", this.value)
+				this.$emit('cancle', this.value)
 			},
 			ok() {
-				this.$emit("ok", this.value)
+				this.$emit('ok', this.value, this.type)
 			}
 		}
 	}
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 	.bar {
 
 		//指定尺寸
